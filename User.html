@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIT medcare</title>
+    <link rel="icon" type="image/x-icon" href="file:///C:/Users/admin/Documents/Project/logo2.ico"> <!-- Updated icon link -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #ccc; /* Set the background to grey */
+        }
+
+        /* Top Bar Section */
+        .top-bar {
+            background-color: #90c9c2; /* Set the background color to #90c9c2 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            color: #fff;
+        }
+
+        .logo img {
+            width: 80px;
+        }
+
+        .button {
+            background-color: #1a2a3a;
+            padding: 10px 20px;
+            border: none;
+            color: #fff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            width: 80px; /* Set the same width as the logo */
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none; /* Initially set to display: none */
+            position: absolute;
+            top: 100%; /* Position below the icon */
+            background-color: #29405c;
+            list-style: none;
+            padding: 0;
+            width: 150px;
+            margin: 0;
+            border: 1px solid #fff;
+            text-align: center;
+        }
+
+        .icon.clicked .dropdown-menu {
+            display: block; /* Display when the icon is clicked */
+        }
+
+        /* Title Styles */
+        .title {
+            font-size: 24px;
+            text-align: left; /* Left-align the titles */
+            margin: 20px 0;
+            line-height: 1.2;
+        }
+
+        .textbox {
+            background-color: #fff; /* Set background color for the text box to white */
+            position: absolute;
+            left: 15px; /* 15-pixel buffer space from the left side */
+            top: 200px; /* Move the box up below the title [user] */
+            width: 50%; /* Stretch until the middle of the page */
+            bottom: 0; /* Stretch to the bottom of the page */
+            padding: 20px;
+            text-align: center; /* Center-align the text */
+        }
+
+        .calendar-box {
+            background-color: #fff; /* Set background color for the text box to white */
+            position: absolute;
+            right: 15px; /* 15-pixel buffer space from the right side */
+            top: 200px; /* Move the box up below the title [user] */
+            width: 25%; /* Half the width of the WHN box */
+            bottom: 0; /* Stretch to the bottom of the page */
+            padding: 20px;
+            text-align: center; /* Center-align the text */
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">
+            <img src="file:///C:/Users/admin/Documents/Project/logo2bg.png" alt="Logo"> <!-- Updated logo image -->
+        </div>
+        <a class="button" href="health-logger.html">Health Logger</a>
+        <a class="button" href="medication.html">Medication</a>
+        <a class="button" href="appointments.html">Appointments</a>
+        <div class="icon-container">
+            <div class="icon" onclick="toggleDropdown(this)">
+                <img src="file:///C:/Users/admin/Documents/Project/log.png" alt="Icon 1" style="width: 80px;">
+                <ul class="dropdown-menu">
+                    <li>About Me</li>
+                    <li>Log Out</li>
+                </ul>
+            </div>
+            <a class="icon" href="#">
+                <img src="file:///C:/Users/admin/Documents/Project/bars.png" alt="Icon 2" style="width: 80px;">
+            </a>
+        </div>
+    </div>
+
+    <!-- Title -->
+    <div class="title">
+        Welcome back,<br>
+        [user]
+    </div>
+
+    <!-- White Box with Text "World Health News" -->
+    <div class="textbox">
+        <p style="text-align: center;">World Health News</p>
+    </div>
+
+    <!-- Calendar Box -->
+    <div class="calendar-box">
+        <p style="text-align: center;">Calendar</p>
+    </div>
+</body>
+<script>
+    function toggleDropdown(icon) {
+        icon.classList.toggle('clicked');
+    }
+</script>
+</html>
+
