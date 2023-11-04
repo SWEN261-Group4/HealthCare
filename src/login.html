@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="icon" type="image/x-icon" href="file:///C:/Users/admin/Documents/Project/logo2.ico">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #ccc;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Title Bar */
+        .title-bar {
+            background-color: #90c9c2;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+        }
+
+        .logo img {
+            width: 480px; /* 1.5x the original width */
+            height: auto;
+            display: block;
+            margin: 20px auto; /* 20px buffer space between logo and title bar */
+        }
+
+        /* Text Boxes */
+        .text-box {
+            text-align: center;
+            padding: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 300px;
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Login Button */
+        .login-button {
+            text-align: center;
+            padding: 10px;
+        }
+
+        button {
+            background-color: #1a2a3a;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* "Remember Login" Text and Checkbox */
+        .remember-login {
+            text-align: center;
+            margin: 10px 0; /* Add space between the password input and "Remember Login" */
+        }
+
+        input[type="checkbox"] {
+            margin-left: 5px; /* Move checkbox to the right of the text */
+        }
+
+        /* Bottom Links */
+        .bottom-links {
+            text-align: center;
+            margin-top: 20px; /* Add space between login button and bottom links */
+        }
+
+        .bottom-links a {
+            text-decoration: none;
+            color: #1a2a3a;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Title Bar -->
+    <div class="title-bar">
+        <!-- No text in the title bar -->
+    </div>
+
+    <!-- Logo -->
+    <div class="logo">
+        <img src="file:///C:/Users/admin/Documents/Project/logo2bg.png" alt="Logo">
+    </div>
+
+    <!-- Text Boxes -->
+    <div class="text-box">
+        <input type="text" placeholder="Username" onfocus="this.placeholder=''" onblur="this.placeholder='Username'">
+    </div>
+    <div class="text-box">
+        <input type="password" placeholder="Password" onfocus="this.placeholder=''" onblur="this.placeholder='Password'">
+    </div>
+
+    <!-- "Remember Login" Text and Checkbox -->
+    <div class="remember-login">
+        <label for="remember-checkbox">Remember Login</label>
+        <input type="checkbox" id="remember-checkbox">
+    </div>
+
+    <!-- Login Button -->
+    <div class="login-button">
+        <button>Login</button>
+    </div>
+
+    <!-- Bottom Links -->
+    <div class="bottom-links">
+        <a href="#">Terms of Use</a>
+        <a href="#">Privacy Policy</a>
+    </div>
+</body>
+</html>
