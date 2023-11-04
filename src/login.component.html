@@ -1,0 +1,28 @@
+<div class="title-bar">
+  <!-- No text in the title bar -->
+</div>
+
+<div class="logo">
+  <img src="assets/logo2bg.png" alt="Logo" />
+</div>
+
+<div class="text-box">
+  <input type="text" placeholder="Username" [(ngModel)]="username" />
+</div>
+<div class="text-box">
+  <input type="password" placeholder="Password" [(ngModel)]="password" />
+</div>
+
+<div class="remember-login">
+  <label for="remember-checkbox">Remember Login</label>
+  <input type="checkbox" id="remember-checkbox" [(ngModel)]="rememberLogin" />
+</div>
+
+<div class="login-button">
+  <button (click)="login()">Login</button>
+</div>
+
+<div class="bottom-links">
+  <a href="#">Terms of Use</a>
+  <a href="#">Privacy Policy</a>
+</div>
