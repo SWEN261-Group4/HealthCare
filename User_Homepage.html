@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIT medcare</title>
+    <link rel="icon" type="image/x-icon" href="assets/logo2.ico">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #ccc;
+        }
+
+        /* Top Bar Section */
+        .top-bar {
+            background-color: #90c9c2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            color: #fff;
+        }
+
+        .logo img {
+            width: 160px;
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .button {
+            background-color: #1a2a3a;
+            padding: 10px 20px;
+            border: none;
+            color: #fff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            width: 80px;
+            height: auto; /* Maintain aspect ratio */
+            position: relative;
+            margin-right: 10px; /* Add 10px buffer space */
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            background-color: #29405c;
+            list-style: none;
+            padding: 0;
+            width: 150px;
+            margin: 0;
+            border: 1px solid #fff;
+            text-align: center;
+            right: 10px; /* 10px buffer from the right edge */
+        }
+
+        .icon.clicked .dropdown-menu {
+            display: block;
+        }
+
+        /* Title Styles */
+        .title-container {
+            margin: 0 10px; /* Buffer space of 10px on both sides */
+        }
+
+        .title {
+            font-size: 24px;
+            text-align: left;
+            margin: 20px 0;
+            line-height: 1.2;
+        }
+
+        .textbox {
+            background-color: #fff;
+            position: absolute;
+            left: 10px; /* Buffer space from the left edge */
+            top: 200px;
+            width: 50%;
+            bottom: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .calendar-box {
+            background-color: #fff;
+            position: absolute;
+            right: 10px; /* Buffer space from the right edge */
+            top: 200px;
+            width: 25%;
+            bottom: 0;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">
+            <img src="assets/logoBG.png" alt="Logo">
+        </div>
+        <a class="button" href="health-logger.html">Health Logger</a>
+        <a class="button" href="medication.html">Medication</a>
+        <a class="button" href="appointments.html">Appointments</a>
+        <div class="icon-container">
+            <div class="icon" onclick="toggleDropdown(this)">
+                <img src="assets/log.png" alt="Icon 1" style="width: 80px; height: auto;">
+                <ul class="dropdown-menu">
+                    <li>About Me</li>
+                    <li>Log Out</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Title 1 -->
+    <div class="title-container">
+        <div class="title">
+            Welcome back,
+        </div>
+    </div>
+
+    <!-- Title 2 -->
+    <div class="title-container">
+        <div class="title">
+            [user]
+        </div>
+    </div>
+
+    <!-- White Box with Text "World Health News" -->
+    <div class="textbox">
+        <p style="text-align: center;">World Health News</p>
+    </div>
+
+    <!-- Calendar Box -->
+    <div class="calendar-box">
+        <p style="text-align: center;">Calendar</p>
+    </div>
+</body>
+<script>
+    function toggleDropdown(icon) {
+        icon.classList.toggle('clicked');
+    }
+</script>
+</html>
+
+
