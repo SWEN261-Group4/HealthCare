@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RIT medcare</title>
-    <link rel="icon" type="image/x-icon" href="file:///C:/Users/admin/Documents/Project/logo2.ico"> <!-- Updated icon link -->
+    <link rel="icon" type="image/x-icon" href="file:///C:/Users/admin/Documents/Project/logo2.ico">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            background-color: #ccc; /* Set the background to grey */
+            background-color: #ccc;
         }
 
         /* Top Bar Section */
         .top-bar {
-            background-color: #90c9c2; /* Set the background color to #90c9c2 */
+            background-color: #90c9c2;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -23,7 +23,8 @@
         }
 
         .logo img {
-            width: 80px;
+            width: 160px;
+            height: auto; /* Maintain aspect ratio */
         }
 
         .button {
@@ -41,14 +42,16 @@
         }
 
         .icon {
-            width: 80px; /* Set the same width as the logo */
+            width: 80px;
+            height: auto; /* Maintain aspect ratio */
             position: relative;
+            margin-right: 10px; /* Add 10px buffer space */
         }
 
         .dropdown-menu {
-            display: none; /* Initially set to display: none */
+            display: none;
             position: absolute;
-            top: 100%; /* Position below the icon */
+            top: 100%;
             background-color: #29405c;
             list-style: none;
             padding: 0;
@@ -56,69 +59,79 @@
             margin: 0;
             border: 1px solid #fff;
             text-align: center;
+            right: 10px; /* 10px buffer from the right edge */
         }
 
         .icon.clicked .dropdown-menu {
-            display: block; /* Display when the icon is clicked */
+            display: block;
         }
 
         /* Title Styles */
+        .title-container {
+            margin: 0 10px; /* Buffer space of 10px on both sides */
+        }
+
         .title {
             font-size: 24px;
-            text-align: left; /* Left-align the titles */
+            text-align: left;
             margin: 20px 0;
             line-height: 1.2;
         }
 
         .textbox {
-            background-color: #fff; /* Set background color for the text box to white */
+            background-color: #fff;
             position: absolute;
-            left: 15px; /* 15-pixel buffer space from the left side */
-            top: 200px; /* Move the box up below the title [user] */
-            width: 50%; /* Stretch until the middle of the page */
-            bottom: 0; /* Stretch to the bottom of the page */
+            left: 10px; /* Buffer space from the left edge */
+            top: 200px;
+            width: 50%;
+            bottom: 0;
             padding: 20px;
-            text-align: center; /* Center-align the text */
+            text-align: center;
         }
 
         .calendar-box {
-            background-color: #fff; /* Set background color for the text box to white */
+            background-color: #fff;
             position: absolute;
-            right: 15px; /* 15-pixel buffer space from the right side */
-            top: 200px; /* Move the box up below the title [user] */
-            width: 25%; /* Half the width of the WHN box */
-            bottom: 0; /* Stretch to the bottom of the page */
+            right: 10px; /* Buffer space from the right edge */
+            top: 200px;
+            width: 25%;
+            bottom: 0;
             padding: 20px;
-            text-align: center; /* Center-align the text */
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="top-bar">
         <div class="logo">
-            <img src="file:///C:/Users/admin/Documents/Project/logo2bg.png" alt="Logo"> <!-- Updated logo image -->
+            <img src="file:///C:/Users/admin/Documents/Project/logo2bg.png" alt="Logo">
         </div>
         <a class="button" href="health-logger.html">Health Logger</a>
         <a class="button" href="medication.html">Medication</a>
         <a class="button" href="appointments.html">Appointments</a>
         <div class="icon-container">
             <div class="icon" onclick="toggleDropdown(this)">
-                <img src="file:///C:/Users/admin/Documents/Project/log.png" alt="Icon 1" style="width: 80px;">
+                <img src="file:///C:/Users/admin/Documents/Project/log.png" alt="Icon 1" style="width: 80px; height: auto;">
                 <ul class="dropdown-menu">
                     <li>About Me</li>
                     <li>Log Out</li>
                 </ul>
             </div>
-            <a class="icon" href="#">
-                <img src="file:///C:/Users/admin/Documents/Project/bars.png" alt="Icon 2" style="width: 80px;">
-            </a>
         </div>
     </div>
 
-    <!-- Title -->
-    <div class="title">
-        Welcome back,<br>
-        [user]
+    <!-- Title 1 -->
+    <div class="title-container">
+        <div class="title">
+            Welcome back,
+        </div>
+    </div>
+
+    <!-- Title 2 -->
+    <div class="title-container">
+        <div class="title">
+            [user]
+        </div>
     </div>
 
     <!-- White Box with Text "World Health News" -->
@@ -137,4 +150,5 @@
     }
 </script>
 </html>
+
 
