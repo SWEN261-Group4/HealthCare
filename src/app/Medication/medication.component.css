@@ -1,0 +1,185 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #F3F3F3;
+}
+
+/* Top Bar Section */
+.top-bar {
+    background-color: #90c9c2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: #fff;
+}
+
+.logo img {
+    width: 160px;
+    height: auto; /* Maintain aspect ratio */
+}
+
+.button {
+    background-color: #1a2a3a;
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 80px;
+    height: auto; /* Maintain aspect ratio */
+    position: relative;
+    margin-right: 10px; /* Add 10px buffer space */
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    background-color: #29405c;
+    list-style: none;
+    padding: 0;
+    width: 150px;
+    margin: 0;
+    border: 1px solid #fff;
+    text-align: center;
+    right: 10px; /* 10px buffer from the right edge */
+}
+
+.icon.clicked .dropdown-menu {
+    display: block;
+}
+
+/* Active Medications text */
+.active-medications {
+    position: absolute;
+    top: 120px; 
+    left: 110px; 
+    font-size: 18px; 
+    color: #333; 
+}
+
+/* White Box for Medications */
+.white-box {
+    position: absolute;
+    top: 160px; 
+    left: 80px; 
+    width: 50%; 
+    height: 100px; 
+    background-color: #fff;
+   /* border: 1px solid #ccc; */
+    padding: 20px;
+}
+
+.medication-list {
+list-style: none;
+padding: 0;
+}
+
+    /* Medication List Styles */
+.medication-item {
+    font-size: 16px; 
+    margin: 5px 0; 
+    display: flex;
+align-items: center;
+}
+
+/* Style the checkboxes and labels */
+.medication-item input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+ .medication-divider {
+    border-top: 1px solid #ccc;
+    flex-grow: 1;
+    margin: 13px 0;
+    padding: 0;
+}
+
+/* Medicine Refill Request text */
+.refill-request {
+    position: absolute;
+    top: 340px; 
+    left: 105px; 
+    font-size: 18px; 
+    color: #333;
+}
+
+
+/* White Box for Medicine Refill Request */
+.refill-request-box {
+    position: absolute;
+    top: 360px; 
+    left: 80px; 
+    width: 50%; 
+    height: 200px; 
+    background-color: #fff;
+   /* border: 1px solid #ccc; */ 
+    padding: 20px;
+    margin: 19px 0;
+}
+
+.refill-request-box p + p{
+   font-size: 13px;
+  margin-top: 50px; 
+   
+}
+
+
+
+   /* Dropdown menu for medication selection */
+.medication-dropdown {
+    position: absolute;
+    top: 450px;
+    left: 105px;
+    z-index:10;  /*bring to font*/
+}
+
+/* Dropdown menu for healthcare provider selection */
+.healthcare-provider-dropdown {
+   position: absolute;
+    top: 520px; 
+    left: 105px; 
+    z-index: 10; 
+}
+
+/* Medication Tracker text */
+.medication-tracker {
+    position: absolute;
+    top: 130px; 
+    left: 970px; 
+    font-size: 18px; 
+    color: #333;
+}
+
+/* White Box for Medication Tracker */
+.medication-tracker-box {
+    position: absolute;
+    top: 170px;
+    left: 910px;
+    width: 20%;
+    height: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
+/* Submit button for healthcare provider selection */
+.submit-button {
+ position: absolute;
+top: 570px; 
+ left: 100px; 
+background-color: #1a2a3a;
+color: #fff;
+border: none;
+padding: 10px 20px;
+cursor: pointer;
+}
