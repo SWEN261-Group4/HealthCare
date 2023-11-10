@@ -1,0 +1,91 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #ccc;
+}
+
+/* Top Bar Section */
+.top-bar {
+    background-color: #90c9c2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: #fff;
+}
+
+.logo img {
+    width: 160px;
+    height: auto; /* Maintain aspect ratio */
+}
+
+.button {
+    background-color: #1a2a3a;
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 80px;
+    height: auto; /* Maintain aspect ratio */
+    position: relative;
+    margin-right: 10px; /* Add 10px buffer space */
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    background-color: #29405c;
+    list-style: none;
+    padding: 0;
+    width: 150px;
+    margin: 0;
+    border: 1px solid #fff;
+    text-align: center;
+    right: 10px; /* 10px buffer from the right edge */
+}
+
+.icon.clicked .dropdown-menu {
+    display: block;
+}
+
+/* Title Styles */
+
+.welcome-message h1 {
+    font-size: 40px;
+    text-align: left;
+    margin: 20px 0;
+    line-height: 1.2;
+}
+
+.textbox {
+    background-color: #fff;
+    position: absolute;
+    left: 10px; /* Buffer space from the left edge */
+    top: 200px;
+    width: 50%;
+    bottom: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+.calendar-box {
+    background-color: #fff;
+    position: absolute;
+    right: 10px; /* Buffer space from the right edge */
+    top: 200px;
+    width: 25%;
+    bottom: 0;
+    padding: 20px;
+    text-align: center;
+}

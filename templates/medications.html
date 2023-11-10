@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthWave</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_icon.ico') }}">
+    <link rel="stylesheet"  href="{{ url_for('static', filename='css/medications.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check">
+          <i class="fas fa-bars" id="btn"></i>
+          <i class="fas fa-times" id="cancel"></i>
+        </label>
+        
+        <ul>
+          <li><a href="{{ url_for('user_profile') }}" rel = "final">Home</a></li>
+          <li><a href="{{ url_for('health_logger') }}">Health logger</a></li>
+          <li><a href="{{ url_for('appointments') }}">Health logger</a></li>
+        </ul>
+    </nav>
+
+<!-- Active Medications text -->
+<div id="content1">
+    <h2>Active Medications</h2>
+</div>
+
+
+<!-- White Box for Medications -->
+<div class="white-box">
+</div>
+
+<!-- Medication Refill Request text -->
+<div class="refill-request">
+    Medicine Refill Request
+</div>
+
+
+ <!-- Dropdown menu for medication selection -->
+<div class="medication-dropdown">
+    <select>
+        <option value="Medication 1">Medication 1</option>
+        <option value="Medication 2">Medication 2</option>
+        <option value="Medication 3">Medication 3</option>
+        <!-- Add more options as needed -->
+    </select>
+</div>
+
+
+
+<!-- White Box for Medicine Refill Request -->
+<div class="refill-request-box">
+<p>Select medication</p>
+<p>Select healthcare provider</p>
+</div>
+
+
+<!-- Medication Tracker text -->
+<div class="medication-tracker">
+    Medication Tracker
+</div>
+
+
+<!-- White Box for Medication Tracker -->
+<div class="medication-tracker-box">
+<ul class="medication-list">
+    <li class="medication-item">
+        <input type="checkbox" id="medication1" name="medication1">
+        <label for="medication1">Medication 1, 10:00AM</label>
+    </li>
+    <hr class="medication-divider">
+    <li class="medication-item">
+        <input type="checkbox" id="medication2" name="medication2">
+        <label for="medication2">Medication 2, 5:00PM</label>
+    </li>
+    <hr class="medication-divider">
+    <li class="medication-item">
+        <input type="checkbox" id="medication3" name="medication3">
+        <label for="medication3">Medication 3, 5:00PM</label>
+    </li>
+    <!-- Add more medications as needed -->
+</ul>
+</div>
+
+
+
+<!-- White Box for Medications -->
+<div class="white-box">
+    <div class="medication-item">Medication 1</div>
+    <div class="medication-divider"></div>
+    <div class="medication-item">Medication 2</div>
+    <div class="medication-divider"></div>
+    <div class="medication-item">Medication 3</div>
+    <!-- Add more medications needed -->
+</div>
+
+<!-- Dropdown menu for healthcare provider selection-->
+<div class="healthcare-provider-dropdown">
+<select>
+    <option value="Primary Physician">Primary Physician</option>
+    <option value="Pharmacist">Pharmacist</option>
+    <!-- Add more options as needed -->
+</select>
+</div>
+
+<!-- Submit button for healthcare provider selection -->
+<button class="submit-button" type="submit">Submit Request</button>
+
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIT medcare</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_icon.ico') }}">
+    <link rel="stylesheet"  href="{{ url_for('static', filename='css/user.css') }}">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logoBG.png') }}" alt="Logo">
+        </div>
+        <a class="button" href="{{ url_for('health_logger') }}">Health Logger</a>
+        <a class="button" href="{{ url_for('medications') }}">Medications</a>
+        <a class="button" href="{{ url_for('appointments') }}">Appointments</a>
+
+        <div class="icon-container">
+            <div class="icon" onclick="toggleDropdown(this)">
+                <img src="{{ url_for('static', filename='logoBG.png') }}" alt="Logo" style="width: 80px; height: auto;">
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="button" href="{{ url_for('about_me') }}">About Me</a>
+                    </li>
+                    <li>
+                        <a class="button" href="{{ url_for('logout') }}">Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- welcome message -->
+    <div class="welcome-message">
+        <h1>{{ welcome_message }}</h1>
+    </div>
+
+    <!-- White Box with Text "World Health News" -->
+    <div class="textbox">
+        <p style="text-align: center;">World Health News</p>
+    </div>
+
+    <!-- Calendar Box -->
+    <div class="calendar-box">
+        <p style="text-align: center;">Calendar</p>
+    </div>
+</body>
+<script>
+    function toggleDropdown(icon) {
+        icon.classList.toggle('clicked');
+    }
+</script>
+</html>
