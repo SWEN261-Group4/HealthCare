@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthWave</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_icon.ico') }}">
+    <link rel="stylesheet"  href="{{ url_for('static', filename='css/appointments.css') }}">
+</head>
+
+<body>
+    <div class="top-bar">
+        <div class="logo">
+            <img src="assets/logo2bg.png" alt="Logo">
+        </div>
+        <a class="button" href="health-logger.html">Health Logger</a>
+        <a class="button" href="medication.html">Medication</a>
+        <a class="button" href="appointments.html">Appointments</a>
+        <div class="icon-container">
+            <div class="icon" onclick="toggleDropdown(this)">
+                <img src="assets/log.png" alt="Icon 1" style="width: 80px; height: auto;">
+                <ul class="dropdown-menu">
+                    <li>About Me</li>
+                    <li>Log Out</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div id="Active-Appointments" class="grid-item">
+            <h2>Active Appointments</h2>
+        </div>
+        <div id="Schedule-Appointment" class="grid-item">
+            <h2>Schedule Appointment</h2>
+            <div id="calendar">
+                <!-- Paste the calendar HTML and Script here -->
+                <div id="calendar-header">
+                    <button onclick="prevMonth()">Previous Month</button>
+                    <h2 id="month-year"></h2>
+                    <button onclick="nextMonth()">Next Month</button>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th>Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="calendar-body">
+                        <!-- Calendar days will be inserted here dynamically -->
+                    </tbody>
+                </table>
+
+                <script>
+                    function generateCalendar(year, month) {
+                        const firstDay = new Date(year, month - 1, 1);
+                        const lastDay = new Date(year, month, 0);
+                        const daysInMonth = lastDay.getDate();
+
+                        const calendarBody = document.getElementById('calendar-body');
+                        calendarBody.innerHTML = '';
+
+                        let dayCounter = 1;
+
+                        for (let i = 0; i < 6; i++) {
+                            const row = document.createElement('tr');
+
+                            for (let j = 0; j < 7; j++) {
+                                const cell = document.createElement('td');
+
+                                if ((i === 0 && j < firstDay.getDay()) || dayCounter > daysInMonth) {
+                                    cell.textContent = '';
+                                } else {
+                                    cell.textContent = dayCounter;
+                                    cell.addEventListener('click', function () {
+                                        handleDateClick(year, month, dayCounter);
+                                    });
+
+                                    if (isDateInPast(year, month, dayCounter)) {
+                                        cell.classList.add('past');
+                                    }
+
+                                    dayCounter++;
+                                }
+
+                                row.appendChild(cell);
+                            }
+
+                            calendarBody.appendChild(row);
+                        }
+                    }
+
+                    function updateMonthYear(year, month) {
+                        document.getElementById('month-year').textContent = `${getMonthName(month)} ${year}`;
+                    }
+
+                    function prevMonth() {
+                        currentDate.setMonth(currentDate.getMonth() - 1);
+                        updateCalendar();
+                    }
+
+                    function nextMonth() {
+                        currentDate.setMonth(currentDate.getMonth() + 1);
+                        updateCalendar();
+                    }
+
+                    function getMonthName(month) {
+                        const months = [
+                            'January', 'February', 'March', 'April',
+                            'May', 'June', 'July', 'August',
+                            'September', 'October', 'November', 'December'
+                        ];
+                        return months[month - 1];
+                    }
+
+                    function isDateInPast(year, month, day) {
+                        const today = new Date();
+                        const compareDate = new Date(year, month - 1, day);
+                        return compareDate < today;
+                    }
+
+                    function handleDateClick(year, month, day) {
+                        if (isDateInPast(year, month, day)) {
+                            alert('Cannot select a date in the past.');
+                        } else {
+                            alert(`Selected date: ${getMonthName(month)} ${day}, ${year}`);
+                            // Add your custom logic for handling the click on a valid date
+                        }
+                    }
+
+                    function updateCalendar() {
+                        const year = currentDate.getFullYear();
+                        const month = currentDate.getMonth() + 1;
+
+                        updateMonthYear(year, month);
+                        generateCalendar(year, month);
+                    }
+
+                    const currentDate = new Date();
+                    updateCalendar();
+                </script>
+            </div>
+        </div>
+        <div id="Date-Time" class="grid-item">
+            <h2>Date & Time</h2>
+            <!-- Content for Date & Time goes here -->
+        </div>
+    </div>
+
+    <script>
+        function toggleDropdown(icon) {
+            const dropdown = icon.querySelector('.dropdown-menu');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            icon.classList.toggle('clicked');
+        }
+    </script>
+</body>
+
+</html>
+
