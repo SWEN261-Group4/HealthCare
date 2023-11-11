@@ -1,0 +1,128 @@
+ body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #ccc;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .grid-item {
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.5em;
+            font-weight: normal;
+            height: 170px;
+            width: 80%;
+        }
+
+        #Active-Appointments {
+            grid-area: 1 / 1 / 2 / 4;
+            height: 150px;
+        }
+
+        #Schedule-Appointment {
+            grid-area: 2 / 1 / 3 / 3;
+            width: 60%;
+            height: 400px;
+        }
+
+        #Date-Time {
+            grid-area: 2 / 3 / 3 / 4;
+            margin-left: -240px;
+            width: 120%;
+            height: 400px;
+        }
+
+        #calendar {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Top Bar Section */
+        .top-bar {
+            background-color: #90c9c2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            color: #fff;
+        }
+
+        .logo img {
+            width: 160px;
+            height: auto;
+        }
+
+        .button {
+            background-color: #1a2a3a;
+            padding: 10px 20px;
+            border: none;
+            color: #fff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .icon-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            width: 80px;
+            height: auto;
+            position: relative;
+            margin-right: 10px;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            background-color: #29405c;
+            list-style: none;
+            padding: 0;
+            width: 150px;
+            margin: 0;
+            border: 1px solid #fff;
+            text-align: center;
+            right: 10px;
+        }
+
+        .icon.clicked .dropdown-menu {
+            display: block;
+        }
+
+        /* Calendar Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td.past {
+            color: #aaa;
+            pointer-events: none;
+        }
+
+        #calendar-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
