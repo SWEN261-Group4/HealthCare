@@ -1,0 +1,183 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #ccc; /* Set the background to grey */
+}
+
+/* Top Bar Section */
+.top-bar {
+    background-color: #90c9c2; /* Set the background color to #90c9c2 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: #fff;
+}
+
+.logo img {
+    width: 80px;
+}
+
+.button {
+    background-color: #1a2a3a;
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.icon {
+    width: 80px; /* Set the same width as the logo */
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none; /* Initially set to display: none */
+    position: absolute;
+    top: 100%; /* Position below the icon */
+    background-color: #29405c;
+    list-style: none;
+    padding: 0;
+    width: 150px;
+    margin: 0;
+    border: 1px solid #fff;
+    text-align: center;
+}
+
+.icon.clicked .dropdown-menu {
+    display: block; /* Display when the icon is clicked */
+}
+
+/* Title Styles */
+.title {
+    font-size: 24px;
+    text-align: left; /* Left-align the titles */
+    margin: 20px 0;
+    line-height: 1.2;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: black;
+    font-family: Arial, sans-serif;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.profile-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.message {
+    text-align: left;
+}
+
+.message h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.message p {
+    font-size: 18px;
+    margin: 0;
+}
+
+.message p strong {
+    font-weight: bold;
+}
+
+.message p span {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.message p u {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+caption {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.logout-button-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.logout-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.schedule-button {
+    background-color: #007bff;
+    color: black;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.mentor-container {
+    margin-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.mentor {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.mentor-details {
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.contact-section {
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.contact-header {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
