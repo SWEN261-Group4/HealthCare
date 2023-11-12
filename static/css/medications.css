@@ -1,254 +1,182 @@
 .container {
-    display: grid;
-    height: 150vh;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0.5fr 2fr 1fr 2fr 2fr 4fr 1fr;
-    grid-template-areas:
-      "nav nav nav nav"
-      "content1 content1 content1 content3"
-      "content2 content2 content2 content3"
-      "footer footer footer footer";
-    grid-gap: 2rem;
-    font-weight: 800;
-    text-transform: none;
-    font-size: 12px;
-    color: #004d40;
-    text-align: center;
-  }
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 5fr 5fr 0.5fr;
+  grid-template-areas:
+    "nav nav nav nav"
+    "content1 content1 content1 content3"
+    "content2 content2 content2 content3"
+    "footer footer footer footer";
+  grid-gap: 1rem;
+  font-weight: 500;
+  text-transform: none;
+  font-size: 12px;
+  color: #004d40;
+}
 
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #F3F3F3;
+    background-color: #ccc;
 }
 
-/* Nav bar Section */
+/* Top Bar Section */
 nav {
-    background-color: #90c9c2;
-    font-family: "Young Serif";
-    height: 4rem;
-    margin: 0;
-    text-decoration: none;
-    position: fixed;
-    width: 100%;
-    z-index: 1;
-  }
-  
-  nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-  
-  nav ul li {
-    margin: 0 1rem;
-  }
-  
-  nav ul li a {
-    position: relative;
-    color: #0fa3b1;
-    font-size: 1.125rem;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  nav ul li a::before {
-    position: absolute;
-    content: "";
-    left: 0;
-    bottom: -0.12rem;
-    height: 0.12rem;
-    width: 100%;
-    background: white;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s linear;
-  }
-  
-  nav ul li a:hover {
-    color: white;
-  }
-  
-  nav ul li a[rel~="active"] {
-    color: white;
-  }
-  
-  nav ul li a:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-.logo img {
-    width: 160px;
-    height: auto; /* Maintain aspect ratio */
+  background-color: #90c9c2;
+  font-family: "Young Serif";
+  height: 4rem;
+  z-index: 2;
+  margin: 0;
+  text-decoration: none;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between; /* Align items to the far right */
+  align-items: center;
 }
 
-.button {
-    background-color: #1a2a3a;
-    padding: 10px 20px;
-    border: none;
-    color: #fff;
-    text-decoration: none;
-    margin-right: 10px;
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
-.icon-container {
-    display: flex;
-    align-items: center;
+nav ul li {
+  margin: 0 1rem;
+}
+
+nav ul li:not(.dropdown) {
+  text-align: center; /* Center non-dropdown items */
+}
+
+nav ul li a {
+  position: relative;
+  color: #ffff;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+nav ul li a::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: -0.12rem;
+  height: 0.12rem;
+  width: 100%;
+  background: white;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s linear;
+}
+
+nav ul li a:hover {
+  color: white;
+}
+
+nav ul li a[rel~="active"] {
+  color: white;
+}
+
+nav ul li a:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+#check {
+  display: none;
+  background-color: #020202;
 }
 
 .icon {
-    width: 80px;
-    height: auto; /* Maintain aspect ratio */
-    position: relative;
-    margin-right: 10px; /* Add 10px buffer space */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    background-color: #29405c;
-    list-style: none;
-    padding: 0;
-    width: 150px;
-    margin: 0;
-    border: 1px solid #fff;
-    text-align: center;
-    right: 10px; /* 10px buffer from the right edge */
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0; /* Align the dropdown menu to the right */
+  background-color: #333; /* Adjust background color as needed */
+  list-style: none;
+  padding: 0;
+  width: 120px; /* Adjust width as needed */
+  margin: 0;
+  text-align: center;
 }
 
-.icon.clicked .dropdown-menu {
-    display: block;
+/* Display the dropdown when the checkbox is checked */
+#toggleDropdown:checked + ul .dropdown-menu {
+  display: block;
 }
 
-/* Active Medications text */
-.active-medications {
-    position: absolute;
-    top: 120px; 
-    left: 110px; 
-    font-size: 18px; 
-    color: #333; 
+/* Style the dropdown items */
+.dropdown-menu li {
+  display: block;
 }
 
-/* White Box for Medications */
-.white-box {
-    position: absolute;
-    top: 160px; 
-    left: 80px; 
-    width: 50%; 
-    height: 100px; 
-    background-color: #fff;
-   /* border: 1px solid #ccc; */
-    padding: 20px;
+/* CONTENT1 */
+#content1 {
+  grid-area: content1;
+  background-color: whitesmoke;
 }
 
-.medication-list {
-list-style: none;
-padding: 0;
+/* CONTENT2 */
+#content2 {
+  grid-area: content2;
+  background-color: whitesmoke;
 }
 
-    /* Medication List Styles */
-.medication-item {
-    font-size: 16px; 
-    margin: 5px 0; 
-    display: flex;
-align-items: center;
+/* CONTENT3 */
+/* Add this to your existing CSS or create a new CSS file and link it in your HTML */
+
+#content3 {
+  grid-area: content3;
+  background-color: white;
+  padding: 20px;
 }
 
-/* Style the checkboxes and labels */
-.medication-item input[type="checkbox"] {
+#medicationDropdown {
+  display: none;
+  margin-top: 10px;
+}
+
+#medicationInput,
+#timeDropdown {
   margin-right: 10px;
 }
 
- .medication-divider {
-    border-top: 1px solid #ccc;
-    flex-grow: 1;
-    margin: 13px 0;
-    padding: 0;
+#okBtn,
+#cancelBtn {
+  margin-top: 10px;
 }
 
-/* Medicine Refill Request text */
-.refill-request {
-    position: absolute;
-    top: 340px; 
-    left: 105px; 
-    font-size: 18px; 
-    color: #333;
+#medicationList {
+  margin-top: 20px;
 }
 
-
-/* White Box for Medicine Refill Request */
-.refill-request-box {
-    position: absolute;
-    top: 360px; 
-    left: 80px; 
-    width: 50%; 
-    height: 200px; 
-    background-color: #fff;
-   /* border: 1px solid #ccc; */ 
-    padding: 20px;
-    margin: 19px 0;
+.medication-entry {
+  border-bottom: 1px solid #ccc; /* Add a line between each element */
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  font-size: 16px; /* Adjust font size as needed */
+  font-weight: bold; /* Make the font thicker */
 }
 
-.refill-request-box p + p{
-   font-size: 13px;
-  margin-top: 50px; 
-   
-}
+/* Add more styling as needed */
 
 
-
-   /* Dropdown menu for medication selection */
-.medication-dropdown {
-    position: absolute;
-    top: 450px;
-    left: 105px;
-    z-index:10;  /*bring to font*/
-}
-
-/* Dropdown menu for healthcare provider selection */
-.healthcare-provider-dropdown {
-   position: absolute;
-    top: 520px; 
-    left: 105px; 
-    z-index: 10; 
-}
-
-/* Medication Tracker text */
-.medication-tracker {
-    position: absolute;
-    top: 130px; 
-    left: 970px; 
-    font-size: 18px; 
-    color: #333;
-}
-
-/* White Box for Medication Tracker */
-.medication-tracker-box {
-    position: absolute;
-    top: 170px;
-    left: 910px;
-    width: 20%;
-    height: 300px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 20px;
-}
-
-/* Submit button for healthcare provider selection */
-.submit-button {
- position: absolute;
-top: 570px; 
- left: 100px; 
-background-color: #1a2a3a;
-color: #fff;
-border: none;
-padding: 10px 20px;
-cursor: pointer;
+/* FOOTER */
+#footer {
+  grid-area: footer;
+  background-color: burlywood;
+  z-index: 1;
 }

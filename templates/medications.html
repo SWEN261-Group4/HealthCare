@@ -7,112 +7,107 @@
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_icon.ico') }}">
     <link rel="stylesheet"  href="{{ url_for('static', filename='css/medications.css') }}">
 </head>
-<body>
 
+<!-- Add the following script tag in the head or before the closing body tag -->
+
+<!-- Add this to your existing HTML, preferably at the end, just before the closing </body> tag -->
+
+
+<body>
 <div class="container">
 
     <nav>
-        <input type="checkbox" id="check">
-        <label for="check">
-          <i class="fas fa-bars" id="btn"></i>
-          <i class="fas fa-times" id="cancel"></i>
-        </label>
-        
+        <input type="checkbox" id="toggleDropdown">
         <ul>
-          <li><a href="{{ url_for('user_profile') }}" rel = "final">Home</a></li>
-          <li><a href="{{ url_for('health_logger') }}">Health logger</a></li>
-          <li><a href="{{ url_for('appointments') }}">Health logger</a></li>
+            <li><a href="{{ url_for('user_profile') }}" rel="final">Home</a></li>
+            <li><a href="{{ url_for('health_logger') }}">Health logger</a></li>
+            <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+            <li class="dropdown">
+                <label for="toggleDropdown" class="icon" rel="final">
+                    <img src="{{ url_for('static', filename='dropdown.png') }}" alt="drop down" style="width: 40px; height: auto; ">
+                </label>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url_for('about_me') }}">About Me</a></li>
+                    <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 
-<!-- Active Medications text -->
-<div id="content1">
-    <h2>Active Medications</h2>
+    <div id="content1">
+        <h1>Active Medications</h1>
+    </div>
+
+    <div id="content2">
+        <h1>Refill Request</h1>
+    </div>
+
+<!-- Add the following to the content3 section -->
+
+<div id="content3">
+    <h1>Medication Intake Tracker</h1>
+    <button id="logMedicationBtn">Log Medication</button>
+    <div id="medicationDropdown">
+        <select id="medicationInput">
+            <option value="ibuprofen">Ibuprofen</option>
+            <option value="multivitamin">Multivitamin</option>
+            <option value="loratadine">Loratadine</option>
+            <option value="tramadol">Tramadol</option>
+        </select>
+        <select id="timeDropdown">
+            <!-- Add your time options here -->
+        </select>
+        <button id="logTimeBtn">Log Time</button>
+        <button id="okBtn">OK</button>
+        <button id="cancelBtn">Cancel</button>
+    </div>
+    <div id="medicationList"></div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const logMedicationBtn = document.getElementById('logMedicationBtn');
+        const medicationDropdown = document.getElementById('medicationDropdown');
+        const medicationInput = document.getElementById('medicationInput');
+        const timeDropdown = document.getElementById('timeDropdown');
+        const logTimeBtn = document.getElementById('logTimeBtn');
+        const okBtn = document.getElementById('okBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const medicationList = document.getElementById('medicationList');
 
-<!-- White Box for Medications -->
-<div class="white-box">
-</div>
+        logMedicationBtn.addEventListener('click', function () {
+            medicationDropdown.style.display = 'block';
+        });
 
-<!-- Medication Refill Request text -->
-<div class="refill-request">
-    Medicine Refill Request
-</div>
+        logTimeBtn.addEventListener('click', function () {
+            const selectedMedication = medicationInput.value;
+            const selectedTime = timeDropdown.value;
+            const currentTime = new Date().toLocaleTimeString();
 
+            const medicationEntry = document.createElement('div');
+            medicationEntry.classList.add('medication-entry');
+            medicationEntry.textContent = `Medication: ${selectedMedication}, Time: ${selectedTime || currentTime}`;
+            medicationList.appendChild(medicationEntry);
 
- <!-- Dropdown menu for medication selection -->
-<div class="medication-dropdown">
-    <select>
-        <option value="Medication 1">Medication 1</option>
-        <option value="Medication 2">Medication 2</option>
-        <option value="Medication 3">Medication 3</option>
-        <!-- Add more options as needed -->
-    </select>
-</div>
+            // Clear inputs
+            medicationInput.value = '';
+            timeDropdown.value = '';
 
+            // Hide the dropdown
+            medicationDropdown.style.display = 'none';
+        });
 
+        okBtn.addEventListener('click', function () {
+            // Additional logic for OK button
+        });
 
-<!-- White Box for Medicine Refill Request -->
-<div class="refill-request-box">
-<p>Select medication</p>
-<p>Select healthcare provider</p>
-</div>
-
-
-<!-- Medication Tracker text -->
-<div class="medication-tracker">
-    Medication Tracker
-</div>
-
-
-<!-- White Box for Medication Tracker -->
-<div class="medication-tracker-box">
-<ul class="medication-list">
-    <li class="medication-item">
-        <input type="checkbox" id="medication1" name="medication1">
-        <label for="medication1">Medication 1, 10:00AM</label>
-    </li>
-    <hr class="medication-divider">
-    <li class="medication-item">
-        <input type="checkbox" id="medication2" name="medication2">
-        <label for="medication2">Medication 2, 5:00PM</label>
-    </li>
-    <hr class="medication-divider">
-    <li class="medication-item">
-        <input type="checkbox" id="medication3" name="medication3">
-        <label for="medication3">Medication 3, 5:00PM</label>
-    </li>
-    <!-- Add more medications as needed -->
-</ul>
-</div>
-
-
-
-<!-- White Box for Medications -->
-<div class="white-box">
-    <div class="medication-item">Medication 1</div>
-    <div class="medication-divider"></div>
-    <div class="medication-item">Medication 2</div>
-    <div class="medication-divider"></div>
-    <div class="medication-item">Medication 3</div>
-    <!-- Add more medications needed -->
-</div>
-
-<!-- Dropdown menu for healthcare provider selection-->
-<div class="healthcare-provider-dropdown">
-<select>
-    <option value="Primary Physician">Primary Physician</option>
-    <option value="Pharmacist">Pharmacist</option>
-    <!-- Add more options as needed -->
-</select>
-</div>
-
-<!-- Submit button for healthcare provider selection -->
-<button class="submit-button" type="submit">Submit Request</button>
+        cancelBtn.addEventListener('click', function () {
+            // Additional logic for CANCEL button
+        });
+    });
+</script>
 
 </div>
 </body>
-
 
 </html>
