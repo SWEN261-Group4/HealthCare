@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from class_config import Config
 
 app = Flask(__name__)
+config = Config()
 app.secret_key = 'steven'
 
 USERS = {
@@ -44,20 +45,12 @@ def user_profile():
 def medications():
     if 'username' in session:
         username = session['username']
-        user_ids = {'ruby': 'U002', 'sapphire': 'U001', 'jasper': 'U003'}
+        user_ids = {'sapphire': 'U001', 'ruby': 'U002'}
         user_id = user_ids.get(username)
-        table_data = config.get_table('medications')
-
-        if user_id:
-            # Fetch medications based on the user_id
-            # Use dictionary cursor to fetch rows as dictionaries
-            cursor = conn.cursor(dictionary=True)
-            cursor.execute(
-                f"SELECT medication_1, medication_2 FROM medications WHERE user_id = '{user_id}'")
-            medications = cursor.fetchall()
-            cursor.close()
-
-            return render_template('medications.html', medications=medications)
+        medications = config.get_meds('medications', user_id)
+        return render_template('medications.html', medications=medications)
+    else:
+        return redirect(url_for('login'))
 
 
 @app.route('/health_logger')

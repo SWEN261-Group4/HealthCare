@@ -40,11 +40,17 @@
             <tr>
                 <th>Medication 1</th>
                 <th>Medication 2</th>
+                <th>Medication 3</th>
+                <th>Medication 4</th>
+                <th>Medication 5</th>
             </tr>
             {% for medication in medications %}
             <tr>
                 <td>{{ medication[0] }}</td>
                 <td>{{ medication[1] }}</td>
+                <td>{{ medication[2] }}</td>
+                <td>{{ medication[3] }}</td>
+                <td>{{ medication[4] }}</td>
             </tr>
             {% endfor %}
         </table>

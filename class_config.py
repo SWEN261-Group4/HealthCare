@@ -27,18 +27,17 @@ class Config:
         return cursor
 
     # PRINT TABLE
-    def get_table(self, table_name):
+    def get_meds(self, table_name, user_id):
         # Connect to the MySQL database
         conn = mysql.connector.connect(**self.mysql_config)
         cursor = conn.cursor()
 
         # Execute the SELECT query to retrieve the data from the table
         cursor.execute(
-            f"SELECT * FROM {table_name};".format(table_name=table_name))
+            f"SELECT medication_1, medication_2, medication_3, medication_4, medication_5 FROM {table_name} WHERE user_id = '{user_id}';".format(table_name=table_name))
         result = cursor.fetchall()
 
         # Close the database connection
         conn.close()
-
         # Return the result of the query
         return result
