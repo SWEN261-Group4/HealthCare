@@ -36,6 +36,18 @@
 
     <div id="content1">
         <h1>Active Medications</h1>
+        <table>
+            <tr>
+                <th>Medication 1</th>
+                <th>Medication 2</th>
+            </tr>
+            {% for medication in medications %}
+            <tr>
+                <td>{{ medication[0] }}</td>
+                <td>{{ medication[1] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
 
     <div id="content2">
