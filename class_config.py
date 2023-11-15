@@ -5,14 +5,14 @@ class Config:
     def __init__(self):
         self.mysql_config = {
             'user': 'root',
-            'password': 'B!UEla$agna6988',
+            'password': 'password',  # change depending on your MySQL password to run
             'host': 'localhost',
             'database': 'healthwave'
         }
         self.db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="B!UEla$agna6988",
+            password="password",  # change depending on your MySQL password to run
             database="healthwave"
         )
 
@@ -26,7 +26,7 @@ class Config:
 
         return cursor
 
-    # PRINT TABLE
+    # SHOW ACTIVE MEDICATIONS
     def get_meds(self, table_name, user_id):
         # Connect to the MySQL database
         conn = mysql.connector.connect(**self.mysql_config)
