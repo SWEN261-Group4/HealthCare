@@ -1,183 +1,250 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;800&family=Young+Serif&display=swap');
+
+.container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 2fr 3fr;
+    grid-template-areas:
+      "nav nav nav nav"
+      "title title title title"
+      "content1 content1 content1 content1"
+      "content2 content2 content2 content2"
+      "content3 content3 content3 content3"
+      "content4 content4 content4 content4"
+      "content5 content5 content5 content5"
+      "footer footer footer footer";
+    grid-gap: 1rem;
+    text-transform: none;
+    font-size: 12px;
+    color: #004d40;
+    margin-left: 140px;
+    margin-right: 140px;
+}
+  
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat';
     margin: 0;
-    background-color: #ccc; /* Set the background to grey */
+    background-color: #d5d5d5;
 }
 
-/* Top Bar Section */
-.top-bar {
-    background-color: #90c9c2; /* Set the background color to #90c9c2 */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    color: #fff;
+h1 {
+  font-weight: 800;
+  font-size: 4rem;
+}
+
+h2 {
+  font-weight: 800;
+  font-size: 1.8rem;
+}
+
+p {
+  font-size: 1.2rem;
 }
 
 .logo img {
-    width: 80px;
+  width: 160px;
+  height: auto;
+  margin-left: 2rem;
 }
 
-.button {
-    background-color: #1a2a3a;
-    padding: 10px 20px;
-    border: none;
-    color: #fff;
-    text-decoration: none;
-    margin-right: 10px;
+button:hover {
+  filter: brightness(90%);
 }
 
-.icon-container {
-    display: flex;
-    align-items: center;
+/* Top Bar Section */
+nav {
+  background-color: #90c9c2;
+  height: 4rem;
+  z-index: 2;
+  margin: 0;
+  text-decoration: none;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: -140px;
+  margin-right: -140px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+nav ul li {
+  margin: 0 2rem;
+}
+
+nav ul li:not(.dropdown) {
+  text-align: center;
+}
+
+nav ul li a {
+  position: relative;
+  color: #ffff;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+nav ul li a::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: -0.12rem;
+  height: 0.12rem;
+  width: 100%;
+  background: white;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s linear;
+}
+
+nav ul li a:hover {
+  color: white;
+}
+
+nav ul li a[rel~="active"] {
+  color: white;
+}
+
+nav ul li a:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+#check {
+  display: none;
+  background-color: #020202;
 }
 
 .icon {
-    width: 80px; /* Set the same width as the logo */
-    position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
 }
 
 .dropdown-menu {
-    display: none; /* Initially set to display: none */
-    position: absolute;
-    top: 100%; /* Position below the icon */
-    background-color: #29405c;
-    list-style: none;
-    padding: 0;
-    width: 150px;
-    margin: 0;
-    border: 1px solid #fff;
-    text-align: center;
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0; 
+  background-color: #1c9fa3;
+  list-style: none;
+  padding: 0;
+  width: 120px;
+  height: 110px;
 }
 
-.icon.clicked .dropdown-menu {
-    display: block; /* Display when the icon is clicked */
+/* display the dropdown when the checkbox is checked */
+#toggleDropdown:checked + ul .dropdown-menu {
+  display: block;
 }
 
-/* Title Styles */
-.title {
-    font-size: 24px;
-    text-align: left; /* Left-align the titles */
-    margin: 20px 0;
-    line-height: 1.2;
+/* style the dropdown items */
+.dropdown-menu li {
+  display: block;
 }
 
-body {
-    background-color: #f5f5f5;
-    color: black;
-    font-family: Arial, sans-serif;
-    text-align: left;
-    margin: 0;
-    padding: 0;
+.dropdown-menu {
+  justify-content: left;
 }
 
-.container {
-    display: flex;
-    align-items: flex-start;
-    padding: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+.dropdown-menu li:nth-child(1) {
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
-.profile-image {
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 20px;
+.dropdown-menu li:nth-child(2) {
+  margin-top: 10px;
 }
 
-.profile-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+#toggleDropdown {
+  display: none;
 }
 
-.message {
-    text-align: left;
+#title {
+  margin-top: 5%;
+  grid-area: title;
+  display: flex;
 }
 
-.message h1 {
-    font-size: 24px;
-    margin: 0;
+#title h1 {
+  margin: 0;
 }
 
-.message p {
-    font-size: 18px;
-    margin: 0;
+.pfp {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%; 
+  overflow: hidden; 
+  margin-right: 20px;
 }
 
-.message p strong {
-    font-weight: bold;
+.pfp img {
+  width: 160px;
+  height: auto;
+  object-fit: cover;
 }
 
-.message p span {
-    font-weight: bold;
-    text-decoration: underline;
+#content1 {
+  grid-area: content1;
+  background-color: whitesmoke;
+  border-radius: 30px;
+  padding: 35px;
+  display: flex;
+  flex-direction: column;
 }
 
-.message p u {
-    font-weight: bold;
-    text-decoration: underline;
+#content1 label {
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-right: 20px;
+  align-self: flex-start;
 }
 
-caption {
-    font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 10px;
+#content1 select {
+  font-family: 'Montserrat';
+  appearance: none;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 8px;
 }
 
-.logout-button-container {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+#content2 {
+  grid-area: content2;
+  background-color: whitesmoke;
+  border-radius: 30px;
+  padding: 35px;
 }
 
-.logout-button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+#content3 {
+  grid-area: content3;
+  background-color: whitesmoke;
+  border-radius: 30px;
+  padding: 35px;
 }
 
-.schedule-button {
-    background-color: #007bff;
-    color: black;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+#content4 {
+  grid-area: content4;
+  background-color: whitesmoke;
+  border-radius: 30px;
+  padding: 35px;
 }
 
-.mentor-container {
-    margin-top: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.mentor {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.mentor-details {
-    font-size: 18px;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.contact-section {
-    margin-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.contact-header {
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 10px;
+#content5 {
+  grid-area: content5;
+  background-color: whitesmoke;
+  border-radius: 30px;
+  padding: 35px;
 }

@@ -5,7 +5,7 @@ class Config:
     def __init__(self):
         self.mysql_config = {
             'user': 'root',
-            'password': 'password',  # change depending on your MySQL password to run
+            'password': "password",  # change depending on your MySQL password to run
             'host': 'localhost',
             'database': 'healthwave'
         }
