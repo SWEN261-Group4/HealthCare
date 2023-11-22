@@ -16,7 +16,6 @@
         </div>
         <input type="checkbox" id="toggleDropdown">
         <ul>
-            <li><a href="{{ url_for('user_profile') }}" rel="final">Home</a></li>
             <li><a href="{{ url_for('health_logger') }}">Health logger</a></li>
             <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
             <li class="dropdown">
@@ -24,6 +23,7 @@
                     <img src="{{ url_for('static', filename='dropdown.png') }}" alt="drop down" style="width: 40px; height: auto; ">
                 </label>
                 <ul class="dropdown-menu">
+                    <li>{{ username }}</li>
                     <li><a href="{{ url_for('about_me') }}">About Me</a></li>
                     <li><a href="{{ url_for('logout') }}">Log out</a></li>
                 </ul>

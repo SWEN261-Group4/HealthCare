@@ -26,6 +26,7 @@
                         <img src="{{ url_for('static', filename='dropdown.png') }}" alt="drop down" style="width: 40px; height: auto; ">
                     </label>
                     <ul class="dropdown-menu">
+                        <li>{{ username }}</li>
                         <li><a href="{{ url_for('about_me') }}">About Me</a></li>
                         <li><a href="{{ url_for('logout') }}">Log out</a></li>
                     </ul>
@@ -35,9 +36,15 @@
 
         <div id="title">
             <div class="pfp">
-                <img src="{{ url_for('static', filename='batman.jpg') }}" alt="profile picture">
+                {% if username == 'ruby' %}
+                    <img src="{{ url_for('static', filename='pfp_ruby.png') }}" alt="Ruby's profile picture">
+                {% elif username == 'sapphire' %}
+                    <img src="{{ url_for('static', filename='pfp_sapphire.png') }}" alt="Sapphire's profile picture">
+                {% elif username == 'jasper' %}
+                    <img src="{{ url_for('static', filename='pfp_jasper.png') }}" alt="Jasper's profile picture">
+                {% endif %}
             </div>
-            <h1>username</h1>
+            <h1>{{ username }}</h1>
         </div>
 
         <div id="content1">

@@ -7,14 +7,16 @@ VALUES
 -- Inserting data into `user` table
 INSERT INTO user (user_id, full_name, blood_group, gender, age, allergies, health_insurance, medical_history, treatment_plan, doctor_1, doctor_2, doctor_3)
 VALUES 
-('U001', 'John Doe', 'A+', 'Male', 35, 'Peanuts', 'Health Ins Co.', 'No significant history', 'Ongoing treatment plan', 'D001', 'D002', NULL),
-('U002', 'Alice Smith', 'B-', 'Female', 28, 'None', 'MediCare', 'Allergic to penicillin', 'Regular checkups', 'D001', NULL, NULL);
+('U001', 'ruby', 'A+', 'Male', 35, 'Peanuts', 'Health Ins Co.', 'No significant history', 'Ongoing treatment plan', 'D001', 'D002', NULL),
+('U002', 'sapphire', 'B-', 'Female', 28, 'None', 'MediCare', 'Allergic to penicillin', 'Regular checkups', 'D001', NULL, NULL);
+('U003', 'jasper', 'B-', 'O', 28, 'None', 'MediCare', 'Allergic to penicillin', 'Regular checkups', 'D001', NULL, NULL);
 
 -- Inserting data into `medications` table
 INSERT INTO medications (user_id, full_name, medication_1, medication_2, medication_3, medication_4, medication_5)
 VALUES 
-('U001', 'Steven Universe', 'Ibuprofen', 'Panadol', NULL, NULL, NULL),
-('U002', 'Mark Grayson', 'Tramadol', 'Paracetamol', 'Adol', NULL, NULL);
+('U001', 'ruby', 'Ibuprofen', 'Panadol', NULL, NULL, NULL),
+('U002', 'sapphire', 'Tramadol', 'Paracetamol', 'Adol', NULL, NULL);
+('U003', 'jasper', 'Xanax', 'Cymbalta', 'Morphine', 'Etoricoxib', 'Dilaudid');
 
 -- Inserting data into `user_health_logger` table
 INSERT INTO user_health_logger (user_id, heart_rate, blood_pressure, body_temperature, date)

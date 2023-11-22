@@ -131,11 +131,13 @@ nav ul li a:hover::before {
   position: absolute;
   top: 100%;
   right: 0; 
-  background-color: #1c9fa3; /* Adjust background color as needed */
+  background-color: #1c9fa3;
+  color: white;
+  font-size: 1rem;
   list-style: none;
   padding: 0;
   width: 120px;
-  height: 110px;
+  height: 130px;
 }
 
 /* Display the dropdown when the checkbox is checked */
@@ -218,7 +220,7 @@ th, td {
   font-family: "Montserrat";
   border-radius: 5px;
   border: 1px solid #ccc;
-  width: 200px; /* Adjust width as needed */
+  width: 200px;
   box-sizing: border-box;
 }
 

@@ -5,14 +5,14 @@ class Config:
     def __init__(self):
         self.mysql_config = {
             'user': 'root',
-            'password': "password",  # change depending on your MySQL password to run
+            'password': '',  # change depending on your MySQL password to run
             'host': 'localhost',
             'database': 'healthwave'
         }
         self.db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="password",  # change depending on your MySQL password to run
+            password="",  # change depending on your MySQL password to run
             database="healthwave"
         )
 
@@ -41,3 +41,37 @@ class Config:
         conn.close()
         # Return the result of the query
         return result
+
+    # GET SCHEDULE TIMINGS OF DOCTOR
+
+    def get_available_timings(self, doctor_id):
+        conn = mysql.connector.connect(**self.mysql_config)
+        cursor = conn.cursor()
+
+        cursor.execute(
+            f"SELECT date, slot_9am, slot_10am, slot_11am, slot_12pm, slot_1pm, slot_2pm, slot_3pm, slot_4pm, slot_5pm FROM doctor_booking_schedule WHERE doctor_id = '{doctor_id}';")
+        result = cursor.fetchone()
+
+        timings = []
+        if result:
+            date = result[0]
+            slots = result[1:]
+            time_slots = ['9am-10am', '10am-11am', '11am-12pm', '12pm-1pm',
+                          '1pm-2pm', '2pm-3pm', '3pm-4pm', '4pm-5pm', '5pm-6pm']
+            for i, slot in enumerate(slots):
+                if slot == 'FREE':
+                    timings.append({'date': date, 'time': time_slots[i]})
+        conn.close()
+        return timings
+
+   # MAKE ASSIGNMENT BOOKED ONCE USER HAS BOOKED WITH DOCTOR
+    def book_appointment(self, doctor_id, appointment_date, slot_time):
+        conn = self.conn_db()
+        cursor = conn.cursor()
+
+        # Update the slot status to "BOOKED" in doctor_booking_schedule
+        update_query = f"UPDATE doctor_booking_schedule SET {slot_time} = 'BOOKED' WHERE doctor_id = '{doctor_id}' AND date = '{appointment_date}';"
+        cursor.execute(update_query)
+        conn.commit()
+
+        conn.close()

@@ -20,6 +20,7 @@
             <div class="icon" onclick="toggleDropdown(this)">
                 <img src="assets/log.png" alt="Icon 1" style="width: 80px; height: auto;">
                 <ul class="dropdown-menu">
+                    <li>{{ username }}</li>
                     <li>
                         <a class="button" href="{{ url_for('about_me') }}">About Me</a>
                     </li>
@@ -34,14 +35,7 @@
     <!-- Title 1 -->
     <div class="title-container">
         <div class="title">
-            Welcome back,
-        </div>
-    </div>
-
-    <!-- Title 2 -->
-    <div class="title-container">
-        <div class="title">
-            [user]
+            Welcome back, {{ username }}
         </div>
     </div>
 

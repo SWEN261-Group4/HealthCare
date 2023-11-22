@@ -139,10 +139,12 @@ nav ul li a:hover::before {
   top: 100%;
   right: 0; 
   background-color: #1c9fa3;
+  color: white;
+  font-size: 1rem;
   list-style: none;
   padding: 0;
   width: 120px;
-  height: 110px;
+  height: 130px;
 }
 
 /* display the dropdown when the checkbox is checked */
@@ -172,10 +174,12 @@ nav ul li a:hover::before {
   display: none;
 }
 
+/* TITLE */
 #title {
-  margin-top: 5%;
   grid-area: title;
   display: flex;
+  margin-top: 5%;
+  margin-bottom: 2rem;
 }
 
 #title h1 {
@@ -191,7 +195,7 @@ nav ul li a:hover::before {
 }
 
 .pfp img {
-  width: 160px;
+  width: 100%;
   height: auto;
   object-fit: cover;
 }
