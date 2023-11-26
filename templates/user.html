@@ -1,57 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RIT medcare</title>
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_icon.ico') }}">
-    <link rel="stylesheet"  href="{{ url_for('static', filename='css/user.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;800&family=Young+Serif&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+    <title>Homepage</title>
 </head>
-<body>
-    <div class="top-bar">
-        <div class="logo">
-            <img src="assets/logoBG.png" alt="Logo">
-        </div>
-        <a class="button" href="{{ url_for('health_logger') }}">Health Logger</a>
-        <a class="button" href="{{ url_for('medications') }}">Medications</a>
-        <a class="button" href="{{ url_for('appointments') }}">Appointments</a>
 
-        <div class="icon-container">
-            <div class="icon" onclick="toggleDropdown(this)">
-                <img src="assets/log.png" alt="Icon 1" style="width: 80px; height: auto;">
-                <ul class="dropdown-menu">
-                    <li>{{ username }}</li>
-                    <li>
-                        <a class="button" href="{{ url_for('about_me') }}">About Me</a>
-                    </li>
-                    <li>
-                        <a class="button" href="{{ url_for('logout') }}">Log out</a>
-                    </li>
-                </ul>
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <a href="{{ url_for('user_profile') }}" rel="final">
+                    <img src="{{ url_for('static', filename='logoBG.png') }}" alt="Logo">
+                </a>
+            </div>
+            <input type="checkbox" id="toggleDropdown">
+            <ul>
+                <li><a href="{{ url_for('medications') }}">Medications</a></li>
+                <li><a href="{{ url_for('health_logger') }}">Health logger</a></li>
+                <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+                <li class="dropdown">
+                    <label for="toggleDropdown" class="icon" rel="final">
+                        <img src="{{ url_for('static', filename='dropdown.png') }}" alt="drop down" style="width: 40px; height: auto; ">
+                    </label>
+                    <ul class="dropdown-menu">
+                        <li>{{ username }}</li>
+                        <li><a href="{{ url_for('about_me') }}">About Me</a></li>
+                        <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="banner">
+            <div class="banner_img">
+            <img src="{{ url_for('static', filename='banner.jpg') }}" alt="Banner">
+            </div>
+            
+            <div class="banner_overlay">
+                <img src="{{ url_for('static', filename='logoBG.png') }}" alt="Banner logo">
+                <h2>Committed to your health</h2>
+                <br>
+                </br>
+                <h1>Welcome back, {{ username }}</h1>
             </div>
         </div>
     </div>
 
-    <!-- Title 1 -->
-    <div class="title-container">
-        <div class="title">
-            Welcome back, {{ username }}
-        </div>
-    </div>
-
-    <!-- White Box with Text "World Health News" -->
-    <div class="textbox">
-        <p style="text-align: center;">World Health News</p>
-    </div>
-
-    <!-- Calendar Box -->
-    <div class="calendar-box">
-        <p style="text-align: center;">Calendar</p>
-    </div>
 </body>
-<script>
-    function toggleDropdown(icon) {
-        icon.classList.toggle('clicked');
-    }
-</script>
+
 </html>

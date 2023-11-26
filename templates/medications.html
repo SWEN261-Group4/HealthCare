@@ -12,10 +12,13 @@
 <div class="container">
     <nav>
         <div class="logo">
+            <a href="{{ url_for('user_profile') }}" rel="final">
             <img src="{{ url_for('static', filename='logoBG.png') }}" alt="Logo">
+            </a>
         </div>
         <input type="checkbox" id="toggleDropdown">
         <ul>
+            <li><a href="{{ url_for('medications') }}">Medications</a></li>
             <li><a href="{{ url_for('health_logger') }}">Health logger</a></li>
             <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
             <li class="dropdown">

@@ -50,10 +50,27 @@ def medications():
         return redirect(url_for('login'))
 
 
-@app.route('/health_logger')
+@app.route('/health_logger', methods=['GET', 'POST'])
 def health_logger():
+    log_health = None
     if 'username' in session:
-        return render_template('healthlogger.html')
+        username = session['username']
+        user_ids = {'ruby': 'U001', 'sapphire': 'U002', 'jasper': 'U003'}
+        user_id = user_ids.get(username)
+
+        if request.method == 'POST':
+            heart_rate = request.form['heartRate']
+            blood_pressure = request.form['bloodPressure']
+            body_temperature = request.form['bodyTemperature']
+
+            config.add_healthlog(user_id, heart_rate,
+                                 blood_pressure, body_temperature)
+
+        # Retrieve health logs specific to the current user
+        # Modify this method based on your implementation
+        log_health = config.get_health_logs(user_id)
+
+    return render_template('healthlogger.html', log_health=log_health)
 
 
 @app.route('/appointments', methods=['GET', 'POST'])

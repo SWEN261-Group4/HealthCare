@@ -1,4 +1,5 @@
 import mysql.connector
+import datetime
 
 
 class Config:
@@ -26,7 +27,7 @@ class Config:
 
         return cursor
 
-    # SHOW ACTIVE MEDICATIONS
+    # GET ACTIVE MEDICATIONS
     def get_meds(self, table_name, user_id):
         # Connect to the MySQL database
         conn = mysql.connector.connect(**self.mysql_config)
@@ -42,8 +43,19 @@ class Config:
         # Return the result of the query
         return result
 
-    # GET SCHEDULE TIMINGS OF DOCTOR
+    # GET HEALTH LOGS FOR A USER
+    def get_health_logs(self, user_id):
+        conn = mysql.connector.connect(**self.mysql_config)
+        cursor = conn.cursor()
 
+        cursor.execute(
+            f"SELECT * FROM user_health_logger WHERE user_id = '{user_id}';")
+        logs = cursor.fetchall()
+
+        conn.close()
+        return logs
+
+    # GET SCHEDULE TIMINGS OF DOCTOR
     def get_available_timings(self, doctor_id):
         conn = mysql.connector.connect(**self.mysql_config)
         cursor = conn.cursor()
@@ -74,4 +86,16 @@ class Config:
         cursor.execute(update_query)
         conn.commit()
 
+        conn.close()
+
+    # ADD HEALTH LOG
+    def add_healthlog(self, user_id, heart_rate, blood_pressure, body_temperature):
+        conn = mysql.connector.connect(**self.mysql_config)
+        cursor = conn.cursor()
+
+        values = (user_id, heart_rate, blood_pressure,
+                  body_temperature, datetime.datetime.now().date())
+        sql_code = "INSERT INTO user_health_logger (user_id, heart_rate, blood_pressure, body_temperature, date) VALUES (%s, %s, %s, %s, %s)"
+        cursor.execute(sql_code, values)
+        conn.commit()
         conn.close()
