@@ -34,10 +34,11 @@ VALUES
 ('D001', '2023-11-15', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE'),
 ('D002', '2023-11-15', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE');
 
-INSERT INTO user_appointments (appointment_id, date, time, doctor_full_name, doctor_id)
+INSERT INTO user_appointments (appointment_id, user_id, date, time, doctor_full_name, doctor_id)
 VALUES 
-('A001', '2023-11-20', '10:00:00', 'Dr. Rick', 'D001'),
-('A002', '2023-11-22', '14:30:00', 'Dr. Garfield', 'D002');
+('A001', 'U001', '2023-11-20', '10:00:00', 'Dr. Rick', 'D001'),
+('A002', 'U002', '2023-11-22', '14:30:00', 'Dr. Rick', 'D001'),
+('A003', 'U003', '2023-11-22', '14:30:00', 'Dr. Garfield', 'D002');
 
 INSERT INTO doctor_appointments (appointment_id, date, time, user_full_name, user_id)
 VALUES 

@@ -70,9 +70,11 @@ CREATE TABLE doctor_appointments (
 
 CREATE TABLE user_appointments (
     appointment_id VARCHAR(10) PRIMARY KEY,
+    user_ID VARCHAR(10),
     date DATE,
     time TIME,
     doctor_full_name VARCHAR(100),
     doctor_id VARCHAR(10),
+    FOREIGN KEY (user_ID) REFERENCES user(user_id),
     FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
 );

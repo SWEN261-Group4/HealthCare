@@ -42,44 +42,70 @@
 
         <div id="content1">
             <h2>Active Appointments</h2>
-            <!-- Checkboxes for each active appointment -->
-            <div id="appointment-list"></div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Appointment ID</th>
+                        <th>Your ID</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Doctor's Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if appointments %}
+                        {% for appointment in appointments %}
+                            <tr>
+                                <td>{{ appointment[0] }}</td>
+                                <td>{{ appointment[1] }}</td>
+                                <td>{{ appointment[2] }}</td>
+                                <td>{{ appointment[3] }}</td>
+                                <td>{{ appointment[4] }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No appointments available.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
             <button class="cancel-btn" onclick="cancelSelectedAppointments()">Cancel Selected Appointments</button>
         </div>
 
         <div id="content2">
-            <h2>Schedule Appointment</h2>
+            <form action="/appointments" method="POST">
+                <h2>Schedule Appointment</h2>
 
-            <select class="doctor-select" onchange="getSelectedDoctor()">
-                <option disabled selected hidden>Doctor</option>
-                <option value="1">Dr. Rick</option>
-                <option value="2">Dr. Garfield</option>
-            </select>
+                <select class="doctor-select" name="doctor_full_name" onchange="getSelectedDoctor()">
+                    <option disabled selected hidden>Doctor</option>
+                    <option value="1">Dr. Rick</option>
+                    <option value="2">Dr. Garfield</option>
+                </select>
 
-
-            <div id="calendar">
-
-                <!-- Schedule and Cancel Appointment Buttons -->
-                <div>
-                    <label for="appointment-date">Select Date:</label>
-                    <input type="date" id="appointment-date" min="" onchange="updateMinDate()">
-                    <br>
-                    <label for="appointment-time">Select Time:</label>
-                    <select id="appointment-time">
-                        <!--Time Slots-->
-                        <option value="09:00">9:00 AM</option>
-                        <option value="10:00">10:00 AM</option>
-                        <option value="11:00">11:00 AM</option>
-                        <option value="12:30">12:00 PM</option>
-                        <option value="1:00">1:00 PM</option>
-                        <option value="2:00">2:00 PM</option>
-                        <option value="3:00">3:00 PM</option>
-                        <option value="4:00">4:00 PM</option>
-                        <option value="5:00">5:00 PM</option>
-                    </select>
-                    <br>
-                    <button class="schedule-btn" onclick="scheduleAppointment()">Schedule Appointment</button>
-                </div>
+                <div id="calendar">
+                        <div>
+                            <label for="appointment-date">Select Date:</label>
+                            <input type="date" id="appointment-date" name="appointment_date" min="">
+                            <br>
+                            <label for="appointment-time">Select Time:</label>
+                            <select id="appointment-time" name="slot_time">
+                                <!--Time Slots-->
+                                <option value="9">9:00 AM</option>
+                                <option value="10">10:00 AM</option>
+                                <option value="11">11:00 AM</option>
+                                <option value="12">12:00 PM</option>
+                                <option value="13">1:00 PM</option>
+                                <option value="14">2:00 PM</option>
+                                <option value="15">3:00 PM</option>
+                                <option value="16">4:00 PM</option>
+                                <option value="17">5:00 PM</option>
+                            </select>
+                            <br>
+                            <button type="submit" class="schedule-btn">Schedule Appointment</button>
+                        </div>
+            </form>
+                
 
                 <input type="hidden" id="selectedDoctor" name="selectedDoctor">
                 <script>

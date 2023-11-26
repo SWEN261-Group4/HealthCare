@@ -6,15 +6,15 @@ class Config:
     def __init__(self):
         self.mysql_config = {
             'user': 'root',
-            'password': '',  # change depending on your MySQL password to run
+            'password': 'password',  # change depending on your MySQL password to run
             'host': 'localhost',
-            'database': 'healthwave'
+            'database': 'healthwave2'  # change to the name of ur database
         }
         self.db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="",  # change depending on your MySQL password to run
-            database="healthwave"
+            password="password",  # change depending on your MySQL password to run
+            database="healthwave2"  # change to the name of ur database
         )
 
     # connect to database
@@ -61,7 +61,7 @@ class Config:
         cursor = conn.cursor()
 
         cursor.execute(
-            f"SELECT date, slot_9am, slot_10am, slot_11am, slot_12pm, slot_1pm, slot_2pm, slot_3pm, slot_4pm, slot_5pm FROM doctor_booking_schedule WHERE doctor_id = '{doctor_id}';")
+            f"SELECT date, slot_9, slot_10, slot_11, slot_12, slot_13, slot_14, slot_15, slot_16, slot_17 FROM doctor_booking_schedule WHERE doctor_id = '{doctor_id}';")
         result = cursor.fetchone()
 
         timings = []
@@ -73,20 +73,11 @@ class Config:
             for i, slot in enumerate(slots):
                 if slot == 'FREE':
                     timings.append({'date': date, 'time': time_slots[i]})
+                elif slot == 'BOOKED':
+                    timings.append(
+                        {'date': date, 'time': f'{time_slots[i]} BOOKED'})
         conn.close()
         return timings
-
-   # MAKE ASSIGNMENT BOOKED ONCE USER HAS BOOKED WITH DOCTOR
-    def book_appointment(self, doctor_id, appointment_date, slot_time):
-        conn = self.conn_db()
-        cursor = conn.cursor()
-
-        # Update the slot status to "BOOKED" in doctor_booking_schedule
-        update_query = f"UPDATE doctor_booking_schedule SET {slot_time} = 'BOOKED' WHERE doctor_id = '{doctor_id}' AND date = '{appointment_date}';"
-        cursor.execute(update_query)
-        conn.commit()
-
-        conn.close()
 
     # ADD HEALTH LOG
     def add_healthlog(self, user_id, heart_rate, blood_pressure, body_temperature):
@@ -98,4 +89,58 @@ class Config:
         sql_code = "INSERT INTO user_health_logger (user_id, heart_rate, blood_pressure, body_temperature, date) VALUES (%s, %s, %s, %s, %s)"
         cursor.execute(sql_code, values)
         conn.commit()
+        conn.close()
+
+    # ADD APPOINTMENT
+    def add_appointment(self, appointment_id, user_id, appointment_date, slot_time, doctor_full_name, doctor_id):
+        conn = mysql.connector.connect(**self.mysql_config)
+        cursor = conn.cursor()
+
+        values = (appointment_id, user_id, appointment_date,
+                  slot_time, doctor_full_name, doctor_id)
+        sql_code = "INSERT INTO user_appointments (appointment_id, user_id, date, time, doctor_full_name, doctor_id) VALUES (%s, %s, %s, %s, %s, %s)"
+        cursor.execute(sql_code, values)
+        conn.commit()
+        conn.close()
+
+    # GET ACTIVE APPOINTMENTS
+    def get_appointments(self, user_id):
+        conn = mysql.connector.connect(**self.mysql_config)
+        cursor = conn.cursor()
+
+        cursor.execute(
+            f"SELECT * FROM user_appointments WHERE user_id = '{user_id}' ORDER BY date;")
+        appointments = cursor.fetchall()
+
+        conn.close()
+        return appointments
+
+   # MAKE APPOINTMENT BOOKED ONCE USER HAS BOOKED WITH DOCTOR
+
+    def book_appointment(self, doctor_id, appointment_date, chosen_time):
+        conn = self.conn_db()
+        cursor = conn.cursor()
+
+        # Assuming chosen_time holds '2:00 PM' as an example
+        hour = chosen_time.split(':')[0]
+
+        # Construct the column name based on the normalized chosen time
+        slot = f"slot_{hour}"
+
+        # Check if the date for the doctor exists in the doctor_booking_schedule
+        check_query = "SELECT COUNT(*) FROM doctor_booking_schedule WHERE doctor_id = %s AND date = %s"
+        cursor.execute(check_query, (doctor_id, appointment_date))
+        row_count = cursor.fetchone()[0]
+
+        if row_count == 0:
+            # If the row doesn't exist, insert a new row for that date and doctor ID
+            insert_query = "INSERT INTO doctor_booking_schedule (doctor_id, date, slot_9, slot_10, slot_11, slot_12, slot_13, slot_14, slot_15, slot_16, slot_17) VALUES (%s, %s, 'FREE','FREE','FREE','FREE','FREE','FREE','FREE','FREE','FREE')"
+            cursor.execute(insert_query, (doctor_id, appointment_date))
+            conn.commit()
+
+        # Update the slot status to "BOOKED" in doctor_booking_schedule using parameterized query
+        update_query = f"UPDATE doctor_booking_schedule SET `{slot}` = 'BOOKED' WHERE doctor_id = %s AND date = %s"
+        cursor.execute(update_query, (doctor_id, appointment_date))
+        conn.commit()
+
         conn.close()

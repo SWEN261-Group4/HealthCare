@@ -1,7 +1,6 @@
-import datetime
 from flask import Flask, render_template, request, redirect, url_for, session, current_app
 from class_config import Config
-import logging
+import uuid
 
 app = Flask(__name__)
 config = Config()
@@ -67,20 +66,25 @@ def health_logger():
                                  blood_pressure, body_temperature)
 
         # Retrieve health logs specific to the current user
-        # Modify this method based on your implementation
         log_health = config.get_health_logs(user_id)
-
-    return render_template('healthlogger.html', log_health=log_health)
+        return render_template('healthlogger.html', log_health=log_health)
+    else:
+        return redirect(url_for('login'))
 
 
 @app.route('/appointments', methods=['GET', 'POST'])
 def appointments():
+    appointments = None
+    available_timings = None
+
     if 'username' in session:
         username = session['username']
         doctors = [
             {'id': 'D001', 'name': 'Dr. Rick'},
             {'id': 'D002', 'name': 'Dr. Garfield'}
         ]
+        user_ids = {'ruby': 'U001', 'sapphire': 'U002', 'jasper': 'U003'}
+        user_id = user_ids.get(username)
 
         if username == 'ruby':
             doctor_id = doctors[0]['id']
@@ -93,18 +97,24 @@ def appointments():
             doctor_name = doctors[1]['name']
 
         if request.method == 'POST':
-            appointment_details = request.get_json()
-            doctor_id = appointment_details['doctor_id']
-            appointment_date = appointment_details['appointment_date']
-            slot_time = appointment_details['slot_time']
+            appointment_date = request.form['appointment_date']
+            slot_time = request.form['slot_time']
+            doctor_full_name = doctor_name
+            doctor_id = doctor_id
+            appointment_id = f"A{str(uuid.uuid4())[:3]}"
 
-            # Call the book_appointment method from the Config class
+            config.add_appointment(
+                appointment_id, user_id, appointment_date, slot_time, doctor_full_name, doctor_id)
+
             config.book_appointment(doctor_id, appointment_date, slot_time)
-            available_timings = config.get_available_timings(doctor_id)
-            return render_template('appointments.html', available_timings=available_timings, doctors=doctors, doctor_name=doctor_name,  username=username)
-        else:
-            available_timings = config.get_available_timings(doctor_id)
-            return render_template('appointments.html', available_timings=available_timings, doctors=doctors, doctor_name=doctor_name,  username=username)
+
+        # retrieve appointments data specific to the user
+        appointments = config.get_appointments(user_id)
+
+        # retrieve doctor available timings
+        available_timings = config.get_available_timings(doctor_id)
+
+        return render_template('appointments.html', appointments=appointments, available_timings=available_timings, doctors=doctors, doctor_name=doctor_name, username=username)
     else:
         return redirect(url_for('login'))
 
