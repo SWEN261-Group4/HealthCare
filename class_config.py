@@ -6,14 +6,14 @@ class Config:
     def __init__(self):
         self.mysql_config = {
             'user': 'root',
-            'password': 'B!UEla$agna6988',  # change depending on your MySQL password to run
+            'password': '',  # change depending on your MySQL password to run
             'host': 'localhost',
             'database': 'healthwave'
         }
         self.db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="B!UEla$agna6988",  # change depending on your MySQL password to run
+            password="",  # change depending on your MySQL password to run
             database="healthwave"
         )
 
