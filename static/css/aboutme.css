@@ -178,7 +178,7 @@ nav ul li a:hover::before {
 #title {
   grid-area: title;
   display: flex;
-  margin-top: 5%;
+  margin-top: 4rem;
   margin-bottom: 2rem;
 }
 

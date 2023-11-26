@@ -38,24 +38,23 @@
     <div id="content1">
         <h2>Active Medications</h2>
         <table>
+            <thead>
+                <tr>
+                    <th>Medication</th>
+                    <th>Morning</th>
+                    <th>Afternoon</th>
+                    <th>Evening</th>
+                </tr>
+            </thead>
             <tbody>
-            {% for medication in medications %}
-            <tr>
-                <td>{{ medication[0] }}</td>
-            </tr>
-            <tr>
-                <td>{{ medication[1] }}</td>
-            </tr>
-            <tr>
-                <td>{{ medication[2] }}</td>
-            </tr>
-            <tr>
-                <td>{{ medication[3] }}</td>
-            </tr>
-            <tr>
-                <td>{{ medication[4] }}</td>
-            </tr>
-            {% endfor %}
+                {% for medication in medications %}
+                <tr>
+                    <td>{{ medication[0] }}</td>
+                    <td>{{ medication[1] }}</td>
+                    <td>{{ medication[2] }}</td>
+                    <td>{{ medication[3] }}</td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

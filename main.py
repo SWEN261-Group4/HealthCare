@@ -1,6 +1,7 @@
 import datetime
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, current_app
 from class_config import Config
+import logging
 
 app = Flask(__name__)
 config = Config()
@@ -41,7 +42,7 @@ def user_profile():
 def medications():
     if 'username' in session:
         username = session['username']
-        user_ids = {'sapphire': 'U001', 'ruby': 'U002', 'jasper': 'U003'}
+        user_ids = {'ruby': 'U001', 'sapphire': 'U002', 'jasper': 'U003'}
         user_id = user_ids.get(username)
         medications = config.get_meds('medications', user_id)
         return render_template('medications.html', medications=medications,  username=username)
@@ -55,7 +56,7 @@ def health_logger():
         return render_template('healthlogger.html')
 
 
-@app.route('/appointments', methods=['GET'])
+@app.route('/appointments', methods=['GET', 'POST'])
 def appointments():
     if 'username' in session:
         username = session['username']
@@ -82,9 +83,11 @@ def appointments():
 
             # Call the book_appointment method from the Config class
             config.book_appointment(doctor_id, appointment_date, slot_time)
-
-        available_timings = config.get_available_timings(doctor_id)
-        return render_template('appointments.html', available_timings=available_timings, doctors=doctors, doctor_name=doctor_name,  username=username)
+            available_timings = config.get_available_timings(doctor_id)
+            return render_template('appointments.html', available_timings=available_timings, doctors=doctors, doctor_name=doctor_name,  username=username)
+        else:
+            available_timings = config.get_available_timings(doctor_id)
+            return render_template('appointments.html', available_timings=available_timings, doctors=doctors, doctor_name=doctor_name,  username=username)
     else:
         return redirect(url_for('login'))
 

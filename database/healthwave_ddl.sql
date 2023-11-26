@@ -25,11 +25,11 @@ CREATE TABLE user (
 CREATE TABLE medications (
     user_id VARCHAR(10),
     full_name VARCHAR(100),
-    medication_1 VARCHAR(100),
-    medication_2 VARCHAR(100),
-    medication_3 VARCHAR(100),
-    medication_4 VARCHAR(100),
-    medication_5 VARCHAR(100),
+    medication_id INT AUTO_INCREMENT PRIMARY KEY,
+    medication VARCHAR(100),
+    time_1 VARCHAR(50),
+    time_2 VARCHAR(50),
+    time_3 VARCHAR(50),
     FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
 

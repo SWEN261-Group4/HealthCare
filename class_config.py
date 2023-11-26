@@ -5,14 +5,14 @@ class Config:
     def __init__(self):
         self.mysql_config = {
             'user': 'root',
-            'password': '',  # change depending on your MySQL password to run
+            'password': 'B!UEla$agna6988',  # change depending on your MySQL password to run
             'host': 'localhost',
             'database': 'healthwave'
         }
         self.db = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="",  # change depending on your MySQL password to run
+            password="B!UEla$agna6988",  # change depending on your MySQL password to run
             database="healthwave"
         )
 
@@ -34,7 +34,7 @@ class Config:
 
         # Execute the SELECT query to retrieve the data from the table
         cursor.execute(
-            f"SELECT medication_1, medication_2, medication_3, medication_4, medication_5 FROM {table_name} WHERE user_id = '{user_id}';".format(table_name=table_name))
+            f"SELECT medication, time_1, time_2, time_3 FROM {table_name} WHERE user_id = '{user_id}';".format(table_name=table_name))
         result = cursor.fetchall()
 
         # Close the database connection

@@ -8,15 +8,18 @@ VALUES
 INSERT INTO user (user_id, full_name, blood_group, gender, age, allergies, health_insurance, medical_history, treatment_plan, doctor_1, doctor_2, doctor_3)
 VALUES 
 ('U001', 'ruby', 'A+', 'Male', 35, 'Peanuts', 'Health Ins Co.', 'No significant history', 'Ongoing treatment plan', 'D001', 'D002', NULL),
-('U002', 'sapphire', 'B-', 'Female', 28, 'None', 'MediCare', 'Allergic to penicillin', 'Regular checkups', 'D001', NULL, NULL);
-('U003', 'jasper', 'B-', 'O', 28, 'None', 'MediCare', 'Allergic to penicillin', 'Regular checkups', 'D001', NULL, NULL);
+('U002', 'sapphire', 'B-', 'Female', 28, 'None', 'MediCare', 'Allergic to penicillin', 'Regular checkups', 'D001', NULL, NULL),
+('U003', 'jasper', 'A+', 'Male', 30, 'None', 'Ins Co.', 'No significant history', 'Ongoing treatment plan', 'D001', NULL, NULL);
 
 -- Inserting data into `medications` table
-INSERT INTO medications (user_id, full_name, medication_1, medication_2, medication_3, medication_4, medication_5)
-VALUES 
-('U001', 'ruby', 'Ibuprofen', 'Panadol', NULL, NULL, NULL),
-('U002', 'sapphire', 'Tramadol', 'Paracetamol', 'Adol', NULL, NULL);
-('U003', 'jasper', 'Xanax', 'Cymbalta', 'Morphine', 'Etoricoxib', 'Dilaudid');
+INSERT INTO medications (user_id, full_name, medication_id, medication, time_1, time_2, time_3)
+VALUES
+('U001', 'ruby', 1, 'Panadol', '09:00', NULL, '18:00'),
+('U002', 'sapphire', 2, 'Tramadol', '08:00', '14:00', '20:00'),
+('U002', 'sapphire', 3, 'Xanax', '08:00', '14:00', '20:00'),
+('U002', 'sapphire', 4, 'Cyanide', NULL, NULL, '20:00'),
+('U003', 'jasper', 5, 'Adol', '08:00', '14:00', '20:00'),
+('U003', 'jasper', 6, 'Steroids', '08:00', NULL, NULL);
 
 -- Inserting data into `user_health_logger` table
 INSERT INTO user_health_logger (user_id, heart_rate, blood_pressure, body_temperature, date)
@@ -38,5 +41,5 @@ VALUES
 
 INSERT INTO doctor_appointments (appointment_id, date, time, user_full_name, user_id)
 VALUES 
-('B001', '2023-11-25', '11:00:00', 'Steven Universe', 'U001'),
-('B002', '2023-11-28', '09:30:00', 'Mark Grayson', 'U002');
+('B001', '2023-11-25', '11:00:00', 'ruby', 'U001'),
+('B002', '2023-11-28', '09:30:00', 'sapphire', 'U002');
