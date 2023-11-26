@@ -165,6 +165,25 @@
         cancelBtn.addEventListener('click', function () {
             medicationDropdown.style.display = 'none';
         });
+
+        function checkMedicationTime(medication, currentTime) {
+
+            const rows = document.querySelectorAll('#content1 tbody tr');
+
+            for (const row of rows) {
+                if (row.cells[0].textContent === medication) {
+
+                    const morningTime = row.cells[1].textContent;
+                    const afternoonTime = row.cells[2].textContent;
+                    const eveningTime = row.cells[3].textContent;
+
+                    if (currentTime === morningTime || currentTime === afternoonTime || currentTime === eveningTime) {
+                        showNotification(`Time to take ${medication}`);
+                    }
+                    break; 
+                }
+            }
+        }
     });
     </script>
 
