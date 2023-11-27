@@ -123,7 +123,28 @@ def appointments():
 def about_me():
     if 'username' in session:
         username = session['username']
-        return render_template('aboutme.html', username=username)
+        user_ids = {'ruby': 'U001', 'sapphire': 'U002', 'jasper': 'U003'}
+        user_id = user_ids.get(username)
+
+        doctors = [
+            {'id': 'D001', 'name': 'Dr. Rick'},
+            {'id': 'D002', 'name': 'Dr. Garfield'}
+        ]
+
+        if username == 'ruby':
+            doctor_id = doctors[0]['id']
+            doctor_name = doctors[0]['name']
+        elif username == 'sapphire':
+            doctor_id = doctors[0]['id']
+            doctor_name = doctors[0]['name']
+        elif username == 'jasper':
+            doctor_id = doctors[1]['id']
+            doctor_name = doctors[1]['name']
+
+        # Retrieve user details
+        user_details = config.get_user_details(user_id)
+
+        return render_template('aboutme.html', username=username, user_id=user_id, user_details=user_details, doctor_name=doctor_name)
     else:
         return redirect(url_for('login'))
 

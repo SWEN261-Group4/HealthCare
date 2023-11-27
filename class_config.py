@@ -27,6 +27,8 @@ class Config:
 
         return cursor
 
+    """ GETTERS """
+
     # GET ACTIVE MEDICATIONS
     def get_meds(self, table_name, user_id):
         # Connect to the MySQL database
@@ -79,6 +81,8 @@ class Config:
         conn.close()
         return timings
 
+    """ SETTERS/ADDERS """
+
     # ADD HEALTH LOG
     def add_healthlog(self, user_id, heart_rate, blood_pressure, body_temperature):
         conn = mysql.connector.connect(**self.mysql_config)
@@ -87,18 +91,6 @@ class Config:
         values = (user_id, heart_rate, blood_pressure,
                   body_temperature, datetime.datetime.now().date())
         sql_code = "INSERT INTO user_health_logger (user_id, heart_rate, blood_pressure, body_temperature, date) VALUES (%s, %s, %s, %s, %s)"
-        cursor.execute(sql_code, values)
-        conn.commit()
-        conn.close()
-
-    # ADD APPOINTMENT
-    def add_appointment(self, appointment_id, user_id, appointment_date, slot_time, doctor_full_name, doctor_id):
-        conn = mysql.connector.connect(**self.mysql_config)
-        cursor = conn.cursor()
-
-        values = (appointment_id, user_id, appointment_date,
-                  slot_time, doctor_full_name, doctor_id)
-        sql_code = "INSERT INTO user_appointments (appointment_id, user_id, date, time, doctor_full_name, doctor_id) VALUES (%s, %s, %s, %s, %s, %s)"
         cursor.execute(sql_code, values)
         conn.commit()
         conn.close()
@@ -115,8 +107,19 @@ class Config:
         conn.close()
         return appointments
 
-   # MAKE APPOINTMENT BOOKED ONCE USER HAS BOOKED WITH DOCTOR
+    # ADD APPOINTMENT
+    def add_appointment(self, appointment_id, user_id, appointment_date, slot_time, doctor_full_name, doctor_id):
+        conn = mysql.connector.connect(**self.mysql_config)
+        cursor = conn.cursor()
 
+        values = (appointment_id, user_id, appointment_date,
+                  slot_time, doctor_full_name, doctor_id)
+        sql_code = "INSERT INTO user_appointments (appointment_id, user_id, date, time, doctor_full_name, doctor_id) VALUES (%s, %s, %s, %s, %s, %s)"
+        cursor.execute(sql_code, values)
+        conn.commit()
+        conn.close()
+
+   # MAKE APPOINTMENT BOOKED ONCE USER HAS BOOKED WITH DOCTOR
     def book_appointment(self, doctor_id, appointment_date, chosen_time):
         conn = self.conn_db()
         cursor = conn.cursor()
@@ -144,3 +147,16 @@ class Config:
         conn.commit()
 
         conn.close()
+
+    # GET USER DETAILS for about me page
+    def get_user_details(self, user_id):
+        conn = self.conn_db()
+        cursor = conn.cursor(dictionary=True)
+
+        cursor.execute(
+            f"SELECT blood_group, gender, age, health_insurance, medical_history, treatment_plan, doctor_1, doctor_2, doctor_3 FROM user WHERE user_id = '{user_id}';"
+        )
+        user_data = cursor.fetchone()
+
+        conn.close()
+        return user_data

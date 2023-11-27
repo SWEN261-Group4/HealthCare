@@ -4,13 +4,12 @@
     display: grid;
     height: 100vh;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 2fr 3fr;
+    grid-template-rows: auto;
     grid-template-areas:
       "nav nav nav nav"
       "title title title title"
-      "content1 content1 content1 content1"
-      "content2 content2 content2 content2"
-      "content3 content3 content3 content3"
+      "content1 content1 content2 content2"
+      "content1 content1 content3 content3"
       "content4 content4 content4 content4"
       "content5 content5 content5 content5"
       "footer footer footer footer";
@@ -178,8 +177,7 @@ nav ul li a:hover::before {
 #title {
   grid-area: title;
   display: flex;
-  margin-top: 4rem;
-  margin-bottom: 2rem;
+  margin-top: 5rem;
 }
 
 #title h1 {
@@ -251,4 +249,40 @@ nav ul li a:hover::before {
   background-color: whitesmoke;
   border-radius: 30px;
   padding: 35px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column; /* Stack username and user ID vertically */
+  margin-left: 20px; /* Adjust this margin as needed */
+}
+
+.user-details h1 {
+  margin: 0;
+}
+
+.user-details h2 {
+  margin-top: 5px;
+}
+
+table {
+  font-size: 1.2rem;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr:not(:last-child) {
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+  font-size: 1.8rem;
+}
+
+td {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
 }

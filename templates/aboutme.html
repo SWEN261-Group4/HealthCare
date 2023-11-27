@@ -44,47 +44,53 @@
                     <img src="{{ url_for('static', filename='pfp_jasper.png') }}" alt="Jasper's profile picture">
                 {% endif %}
             </div>
-            <h1>{{ username }}</h1>
+            <div class="user-details">
+                <h1>{{ username }}</h1>
+                <br>
+                </br>
+                <h2>User ID: {{ user_id }}</h2>
+            </div>
         </div>
 
         <div id="content1">
-
-            <label for="blood">Blood Group</label>
-            <select name="Select" id="blood-group">
-                <option value="A+" readonly>A+</option>
-            </select>
-            <br>
-            <label for="gender">Gender</label>
-            <select name="Select" id="gender">
-                <option value="male" readonly>Male</option>
-            </select>
-            <br>
-            <label for="age">Age</label>
-            <select name="number" min="1" max="100" readonly>
-                <option>38</option>
-            </select>
-        </div>
+            <table>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Blood Group</td>
+                    <td>{{ user_details.blood_group }}</td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>{{ user_details.gender }}</td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td>{{ user_details.age }}</td>
+                </tr>
+            </table>
+        </div>        
 
         <div id="content2">
             <h2>Primary care Physician</h2>
-            <p>Dr Harleen Quinzel</p>
+            <p>{{ doctor_name }}</p>
         </div>
 
         <div id="content3">
             <h2>Health Insurance</h2>
-            <p>Wayne Insurance</p>
+            <p>{{ user_details.health_insurance }}</p>
         </div>
 
         <div id="content4">
             <h2>Medical History</h2>
-            <p>115 broken bones; 6 broken ribs; broken hip-flexor; 35% of total body tissue is full of scars and bruises.
-            </p>
+            <p>{{ user_details.medical_history }}</p>
         </div>
 
         <div id="content5">
             <h2>Treatment Plan</h2>
-            <p>The guy should rest for the rest of his life.
-            </p>
+            <p>{{ user_details.treatment_plan }}</p>
         </div>
     </div>
     </div>
