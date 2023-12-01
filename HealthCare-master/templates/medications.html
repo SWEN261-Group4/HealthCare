@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthWave</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_icon.ico') }}">
+    <link rel="stylesheet"  href="{{ url_for('static', filename='css/medications.css') }}">
+    <script>
+        const currentMonth = new Date().getMonth();
+        if (currentMonth === 9) { 
+            document.addEventListener('DOMContentLoaded', function() {
+                const titleBar = document.querySelector('nav');
+                titleBar.classList.add('november');
+            });
+        }
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <nav>
+        <div class="logo">
+            <a href="{{ url_for('user_profile') }}" rel="final">
+            <img src="{{ url_for('static', filename='logoBG.png') }}" alt="Logo">
+            </a>
+        </div>
+        <input type="checkbox" id="toggleDropdown">
+        <ul>
+            <li><a href="{{ url_for('medications') }}">Medications</a></li>
+            <li><a href="{{ url_for('health_logger') }}">Health logger</a></li>
+            <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+            <li class="dropdown">
+                <label for="toggleDropdown" class="icon" rel="final">
+                    <img src="{{ url_for('static', filename='dropdown.png') }}" alt="drop down" style="width: 40px; height: auto; ">
+                </label>
+                <ul class="dropdown-menu">
+                    <li>{{ username }}</li>
+                    <li><a href="{{ url_for('about_me') }}">About Me</a></li>
+                    <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="title">
+        <h1>Medications</h1>
+    </div>
+
+    <div id="content1">
+        <h2>Active Medications</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Medication</th>
+                    <th>Morning</th>
+                    <th>Afternoon</th>
+                    <th>Evening</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for medication in medications %}
+                <tr>
+                    <td>{{ medication[0] }}</td>
+                    <td>{{ medication[1] }}</td>
+                    <td>{{ medication[2] }}</td>
+                    <td>{{ medication[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div id="content2">
+        <h2>Refill Request</h2>
+        <select class="refill-doctor">
+            <option disabled selected hidden>Doctor</option>
+            <option value="1">Dr. Rick</option>
+            <option value="2">Dr. Garfield</option>
+          </select>
+
+          <select class="refill-medication">
+            <option disabled selected hidden>Medication</option>
+            <option value="1">Ibuprofen</option>
+            <option value="2">Panadol</option>
+          </select>
+
+          <div class="refill-amt">
+            <h2>Enter refill amount (mg)</h2>
+            <input type="number" id="refill-amt" name="refill-amt" class="numeric-field" min="0" max="999" step="1">
+          </div>
+
+        <div class="ok-cancel-buttons">
+            <button id="okBtn">OK</button>
+            <button id="cancelBtn">Cancel</button>
+        </div>
+          
+    </div>
+
+    <div id="content3">
+        <h2>Medication Intake Tracker</h2>
+        <button id="logMedicationBtn">Log Medication</button>
+        <div id="medicationDropdown" class="refill-amt">
+            <select id="medicationInput" class="refill-medication">
+                <option disabled selected hidden>Medication</option>
+                <option value="ibuprofen">Ibuprofen</option>
+                <option value="multivitamin">Multivitamin</option>
+                <option value="loratadine">Loratadine</option>
+                <option value="tramadol">Tramadol</option>
+            </select>
+            <button id="logTimeBtn">Log time</button>
+        </div>
+        <div id="medicationList"></div>
+    </div>
+
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const logMedicationBtn = document.getElementById('logMedicationBtn');
+        const medicationDropdown = document.getElementById('medicationDropdown');
+        const medicationInput = document.getElementById('medicationInput');
+        const logTimeBtn = document.getElementById('logTimeBtn');
+        const medicationList = document.getElementById('medicationList');
+
+        // Load medication logs from local storage
+        let medicationLogs = JSON.parse(localStorage.getItem('medicationLogs')) || [];
+
+        function saveMedicationLogs() {
+            localStorage.setItem('medicationLogs', JSON.stringify(medicationLogs));
+        }
+
+        function renderMedicationLogs() {
+            medicationList.innerHTML = '';
+            medicationLogs.forEach(log => {
+                const medicationEntry = document.createElement('div');
+                medicationEntry.classList.add('medication-entry');
+
+                const medicationInfo = document.createElement('div');
+                medicationInfo.classList.add('medication-info');
+                medicationInfo.textContent = `Medication: ${log.medication}`;
+
+                const medicationTime = document.createElement('div');
+                medicationTime.classList.add('medication-time');
+                medicationTime.textContent = `Time: ${log.time}`;
+
+                medicationEntry.appendChild(medicationInfo);
+                medicationEntry.appendChild(medicationTime);
+
+                medicationList.appendChild(medicationEntry);
+            });
+        }
+
+        // Render existing medication logs on page load
+        renderMedicationLogs();
+
+        logMedicationBtn.addEventListener('click', function () {
+            medicationDropdown.style.display = 'block';
+        });
+
+        logTimeBtn.addEventListener('click', function () {
+            const selectedMedication = medicationInput.value;
+            const currentTime = new Date().toLocaleTimeString();
+
+            // Add log to medicationLogs array
+            medicationLogs.push({ medication: selectedMedication, time: currentTime });
+
+            // Save and render updated logs
+            saveMedicationLogs();
+            renderMedicationLogs();
+
+            // Hide the dropdown
+            medicationDropdown.style.display = 'none';
+            medicationInput.selectedIndex = 0; // Reset the dropdown to its default option
+        });
+
+        cancelBtn.addEventListener('click', function () {
+            medicationDropdown.style.display = 'none';
+        });
+
+        function checkMedicationTime(medication, currentTime) {
+
+            const rows = document.querySelectorAll('#content1 tbody tr');
+
+            for (const row of rows) {
+                if (row.cells[0].textContent === medication) {
+
+                    const morningTime = row.cells[1].textContent;
+                    const afternoonTime = row.cells[2].textContent;
+                    const eveningTime = row.cells[3].textContent;
+
+                    if (currentTime === morningTime || currentTime === afternoonTime || currentTime === eveningTime) {
+                        showNotification(`Time to take ${medication}`);
+                    }
+                    break; 
+                }
+            }
+        }
+    });
+    </script>
+
+</div>
+</body>
+
+</html>

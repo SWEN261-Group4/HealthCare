@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/healthlogger.css') }}">
+    <title>Health Logger</title>
+    <script>
+        const currentMonth = new Date().getMonth();
+        if (currentMonth === 9) { 
+            document.addEventListener('DOMContentLoaded', function() {
+                const titleBar = document.querySelector('nav');
+                titleBar.classList.add('november');
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <a href="{{ url_for('user_profile') }}" rel="final">
+                <img src="{{ url_for('static', filename='logoBG.png') }}" alt="Logo">
+                </a>
+            </div>
+            <input type="checkbox" id="toggleDropdown">
+            <ul>
+                <li><a href="{{ url_for('medications') }}">Medications</a></li>
+                <li><a href="{{ url_for('health_logger') }}">Health logger</a></li>
+                <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+                <li class="dropdown">
+                    <label for="toggleDropdown" class="icon" rel="final">
+                        <img src="{{ url_for('static', filename='dropdown.png') }}" alt="drop down" style="width: 40px; height: auto; ">
+                    </label>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('about_me') }}">About Me</a></li>
+                        <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="title">
+            <h1>Health logger</h1>
+        </div>
+
+        <div id="content1">
+            <form id="healthForm" action="/health_logger" method="POST">
+                <h2>Heart Rate</h2>
+                <input type="number" name="heartRate" id="heartRate" placeholder="Heart Rate">
+                <h2>Blood pressure</h2>
+                <input type="text" name="bloodPressure" id="bloodPressure" placeholder="Blood Pressure">
+                <h2>Body temp</h2>
+                <input type="number" name="bodyTemperature" id="bodyTemperature" placeholder="Body Temperature">
+                <button type="submit" form="healthForm" class="button">Add</button>
+            </form>     
+        </div>
+
+        <div id="content2">
+            <h2>Health Log</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Log ID</th>
+                        <th>User ID</th>
+                        <th>Heart Rate</th>
+                        <th>Blood Pressure</th>
+                        <th>Body Temperature</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if log_health %}
+                        {% for log in log_health %}
+                            <tr>
+                                <td>{{ log[0] }}</td>
+                                <td>{{ log[1] }}</td>
+                                <td>{{ log[2] }}</td>
+                                <td>{{ log[3] }}</td>
+                                <td>{{ log[4] }}</td>
+                                <td>{{ log[5] }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No health logs available.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>

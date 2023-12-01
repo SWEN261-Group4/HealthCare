@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthWave</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='static/logo_icon.ico') }}">
+    <link rel="stylesheet"  href="{{ url_for('static', filename='css/appointments.css') }}">
+    <script>
+        const currentMonth = new Date().getMonth();
+        if (currentMonth === 9) { 
+            document.addEventListener('DOMContentLoaded', function() {
+                const titleBar = document.querySelector('nav');
+                titleBar.classList.add('november');
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+        <a href="{{ url_for('user_profile') }}" rel="final">
+            <img src="{{ url_for('static', filename='logoBG.png') }}" alt="Logo">
+        </a>
+        </div>
+        <input type="checkbox" id="toggleDropdown">
+        <ul>
+            <li><a href="{{ url_for('medications') }}">Medications</a></li>
+            <li><a href="{{ url_for('health_logger') }}">Health logger</a></li>
+            <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+            <li class="dropdown">
+                <label for="toggleDropdown" class="icon" rel="final">
+                    <img src="{{ url_for('static', filename='dropdown.png') }}" alt="drop down" style="width: 40px; height: auto; ">
+                </label>
+                <ul class="dropdown-menu">
+                    <li>{{ username }}</li>
+                    <li><a href="{{ url_for('about_me') }}">About Me</a></li>
+                    <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="grid-container">
+
+        <div id="title">
+            <h1>Appointments</h1>
+        </div>
+
+        <div id="content1">
+            <h2>Active Appointments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Appointment ID</th>
+                        <th>Your ID</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Doctor's Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if appointments %}
+                        {% for appointment in appointments %}
+                            <tr>
+                                <td>{{ appointment[0] }}</td>
+                                <td>{{ appointment[1] }}</td>
+                                <td>{{ appointment[2] }}</td>
+                                <td>{{ appointment[3] }}</td>
+                                <td>{{ appointment[4] }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No appointments available.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+            <button class="cancel-btn" onclick="cancelSelectedAppointments()">Cancel Selected Appointments</button>
+        </div>
+
+        <div id="content2">
+            <form action="/appointments" method="POST">
+                <h2>Schedule Appointment</h2>
+
+                <select class="doctor-select" name="doctor_full_name" onchange="getSelectedDoctor()">
+                    <option disabled selected hidden>Doctor</option>
+                    <option value="1">Dr. Rick</option>
+                    <option value="2">Dr. Garfield</option>
+                </select>
+
+                <div id="calendar">
+                        <div>
+                            <label for="appointment-date">Select Date:</label>
+                            <input type="date" id="appointment-date" name="appointment_date" min="">
+                            <br>
+                            <label for="appointment-time">Select Time:</label>
+                            <select id="appointment-time" name="slot_time">
+                                <!--Time Slots-->
+                                <option value="9">9:00 AM</option>
+                                <option value="10">10:00 AM</option>
+                                <option value="11">11:00 AM</option>
+                                <option value="12">12:00 PM</option>
+                                <option value="13">1:00 PM</option>
+                                <option value="14">2:00 PM</option>
+                                <option value="15">3:00 PM</option>
+                                <option value="16">4:00 PM</option>
+                                <option value="17">5:00 PM</option>
+                            </select>
+                            <br>
+                            <button type="submit" class="schedule-btn">Schedule Appointment</button>
+                        </div>
+            </form>
+                
+
+                <input type="hidden" id="selectedDoctor" name="selectedDoctor">
+                <script>
+
+                    function updateMinDate() {
+                        const currentDate = new Date();
+                        const minDate = currentDate.toISOString().split('T')[0];
+                        document.getElementById('appointment-date').min = minDate;
+                    }
+
+                    function scheduleAppointment() {
+                        const selectedDate = document.getElementById('appointment-date').value;
+                        const selectedTime = document.getElementById('appointment-time').value;
+                        const selectedDateTime = `${selectedDate} ${selectedTime}`;
+                        const activeAppointments = document.getElementById('content1');
+
+                        const appointmentDetails = {
+                            doctor_id: document.querySelector('.doctor-select').value,
+                            appointment_date: selectedDate,
+                            slot_time: selectedTime
+                        };
+                        bookAppointment(appointmentDetails);
+
+                        function bookAppointment(appointmentDetails) {
+                            fetch('/book_appointment', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify(appointmentDetails),
+                            })
+                            .then(response => {
+                                // Handle response if needed
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                        }
+
+                        // Check if the selected date and time is in the past
+                        if (isDateTimeInPast(selectedDateTime)) {
+                            alert('Cannot schedule an appointment for a past date and time.');
+                            return;
+                        }
+
+                        // Check if the appointment for the selected date and time already exists
+                        if (document.querySelector(`#content1 li[data-datetime="${selectedDateTime}"]`)) {
+                            alert(`Appointment for ${selectedDateTime} already exists.`);
+                        } else {
+                            // Create a new list item and append it to the Active Appointments section
+                            const newAppointment = document.createElement('li');
+                            newAppointment.setAttribute('data-datetime', selectedDateTime);
+                            newAppointment.innerHTML = `<input type="checkbox" name="appointments" value="${selectedDateTime}"> <span class="appointment-text">Appointment for ${selectedDateTime}</span>`;
+                            activeAppointments.appendChild(newAppointment);
+                            alert(`Scheduled appointment for ${selectedDateTime}`);
+                        }
+                    }
+
+                    function isDateTimeInPast(dateTime) {
+                        const today = new Date().toISOString().split('T')[0];
+                        const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false });
+                        const currentDateTime = `${today} ${currentTime}`;
+                        return dateTime < currentDateTime;
+                    }
+
+                    function cancelSelectedAppointments() {
+                        const checkboxes = document.querySelectorAll('input[name="appointments"]:checked');
+                        checkboxes.forEach((checkbox) => {
+                            const selectedDateTime = checkbox.value;
+                            const appointmentToRemove = document.querySelector(`#content1 li[data-datetime="${selectedDateTime}"]`);
+                            if (appointmentToRemove) {
+                                appointmentToRemove.remove();
+                                alert(`Canceled appointment for ${selectedDateTime}`);
+                            }
+                            // Add your logic to handle the canceled appointment
+                            // For example, you can send a request to the server to cancel the appointment
+                        });
+                    }
+                </script>
+            </div>
+        </div>
+
+        <div id="content3">
+            <h2>Today's Timings for {{ doctor_name }}</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for timing in available_timings %}
+                    <tr>
+                        <td>{{ timing.date }}</td>
+                        <td>{{ timing.time }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        footer
+    </footer>
+
+    <script>
+        function toggleDropdown(icon) {
+            const dropdown = icon.querySelector('.dropdown-menu');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            icon.classList.toggle('clicked');
+        }
+    </script>
+</body>
+
+</html>

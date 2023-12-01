@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;800&family=Young+Serif&display=swap');
+
+.container {
+  display: grid;
+  height: 120vh;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 2fr 3fr;
+  grid-template-areas:
+    "nav nav nav nav"
+    "title title title title"
+    "content1 content1 content1 content3"
+    "content2 content2 content2 content3"
+    "footer footer footer footer";
+  grid-gap: 1rem;
+  text-transform: none;
+  font-size: 12px;
+  color: #004d40;
+  margin-left: 140px;
+  margin-right: 140px;
+}
+
+body {
+    font-family: 'Montserrat';
+    margin: 0;
+    background-color: #d5d5d5;
+}
+
+h1 {
+  font-weight: 800;
+  font-size: 4rem;
+}
+
+h2 {
+  font-weight: 800;
+  font-size: 1.8rem;
+}
+
+.logo img {
+  width: 160px;
+  height: auto;
+  margin-left: 2rem;
+}
+
+button:hover {
+  filter: brightness(90%);
+}
+
+/* Top Bar Section */
+nav {
+  background-color: #90c9c2;
+  height: 4rem;
+  z-index: 2;
+  margin: 0;
+  text-decoration: none;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: -140px;
+  margin-right: -140px;
+}
+
+nav.november {
+  background-color: pink;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+nav ul li {
+  margin: 0 2rem;
+}
+
+nav ul li:not(.dropdown) {
+  text-align: center;
+}
+
+nav ul li a {
+  position: relative;
+  color: #ffff;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+nav ul li a::before {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: -0.12rem;
+  height: 0.12rem;
+  width: 100%;
+  background: white;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s linear;
+}
+
+nav ul li a:hover {
+  color: white;
+}
+
+nav ul li a[rel~="active"] {
+  color: white;
+}
+
+nav ul li a:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+#check {
+  display: none;
+  background-color: #020202;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0; 
+  background-color: #1c9fa3;
+  color: white;
+  font-size: 1rem;
+  list-style: none;
+  padding: 0;
+  width: 120px;
+  height: 130px;
+}
+
+/* Display the dropdown when the checkbox is checked */
+#toggleDropdown:checked + ul .dropdown-menu {
+  display: block;
+}
+
+
+/* Style the dropdown items */
+.dropdown-menu li {
+  display: block;
+}
+
+.dropdown-menu {
+  justify-content: left;
+}
+
+.dropdown-menu li:nth-child(1) {
+  margin-top: 5px;
+  margin-bottom: 10px; /* Adjust the margin as needed */
+}
+
+.dropdown-menu li:nth-child(2) {
+  margin-top: 10px; /* Adjust the margin as needed */
+}
+
+#toggleDropdown {
+  display: none;
+}
+
+/* title */
+#title {
+  grid-area: title;
+  display: flex;
+  margin-top: 2rem;
+}
+
+/* CONTENT1 */
+#content1 {
+  grid-area: content1;
+  background-color: whitesmoke;
+  border-radius: 30px;
+  padding: 35px;
+}
+
+
+/* Apply a bottom border to table rows except for the last row */
+#content1 table {
+  font-size: 1.2rem;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr:not(:last-child) {
+  border-bottom: 1px solid #ddd;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+/* CONTENT2 */
+#content2 {
+  grid-area: content2;
+  background-color: whitesmoke;
+  border-radius: 30px;
+  padding: 35px;
+}
+
+
+.refill-doctor,
+.refill-medication,
+.refill-amt input[type="number"],
+#okBtn,
+#cancelBtn, #logMedicationBtn, #logTimeBtn {
+  margin-top: 10px;
+  padding: 8px;
+  font-size: 16px;
+  font-family: "Montserrat";
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 200px;
+  box-sizing: border-box;
+}
+
+.refill-doctor,
+.refill-medication {
+  width: 204px;
+  flex-direction: row;
+}
+
+#okBtn, #logTimeBtn {
+  background-color: #1c9fa3;
+  color: white;
+}
+
+#cancelBtn {
+  background-color: #b69c7c;
+  color: white;
+}
+
+/* CONTENT3 */
+#content3 {
+  grid-area: content3;
+  background-color: whitesmoke;
+  padding: 20px;
+  border-radius: 30px;
+}
+
+#medicationDropdown {
+  display: none;
+  margin-top: 10px;
+}
+
+#medicationInput,
+#timeDropdown {
+  margin-right: 10px;
+}
+
+#okBtn,
+#cancelBtn {
+  margin-top: 10px;
+}
+
+/* Your existing CSS... */
+
+#content3 {
+  grid-area: content3;
+  background-color: whitesmoke;
+  padding: 20px;
+  border-radius: 30px;
+}
+
+/* ... Other styles ... */
+
+#medicationList {
+  margin-top: 20px;
+  padding-top: 20px; /* Add padding to create space between buttons and entries */
+}
+
+.medication-entry {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  display: flex; /* Display elements in a row */
+  align-items: center; /* Center elements vertically */
+}
+
+.medication-entry:last-child {
+  border-bottom: none; /* Remove border from the last entry */
+}
+
+.medication-info {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.medication-time {
+  font-size: 14px;
+  color: #666;
+}
+
+
+/* Add more styling as needed */
+
+
+/* FOOTER */
+#footer {
+  grid-area: footer;
+  background-color: burlywood;
+  z-index: 1;
+}

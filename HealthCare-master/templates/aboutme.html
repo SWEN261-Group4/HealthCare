@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href="{{ url_for('static', filename='css/aboutme.css') }}">
+    <title>User Account</title>
+    <script>
+        const currentMonth = new Date().getMonth();
+        if (currentMonth === 9) { 
+            document.addEventListener('DOMContentLoaded', function() {
+                const titleBar = document.querySelector('nav');
+                titleBar.classList.add('november');
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="container">
+        <nav>
+            <div class="logo">
+            <a href="{{ url_for('user_profile') }}" rel="final">
+                <img src="{{ url_for('static', filename='logoBG.png') }}" alt="Logo">
+            </a>
+            </div>
+            <input type="checkbox" id="toggleDropdown">
+            <ul>
+                <li><a href="{{ url_for('medications') }}">Medications</a></li>
+                <li><a href="{{ url_for('health_logger') }}">Health logger</a></li>
+                <li><a href="{{ url_for('appointments') }}">Appointments</a></li>
+                <li class="dropdown">
+                    <label for="toggleDropdown" class="icon" rel="final">
+                        <img src="{{ url_for('static', filename='dropdown.png') }}" alt="drop down" style="width: 40px; height: auto; ">
+                    </label>
+                    <ul class="dropdown-menu">
+                        <li>{{ username }}</li>
+                        <li><a href="{{ url_for('about_me') }}">About Me</a></li>
+                        <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <div id="title">
+            <div class="pfp">
+                {% if username == 'ruby' %}
+                    <img src="{{ url_for('static', filename='pfp_ruby.png') }}" alt="Ruby's profile picture">
+                {% elif username == 'sapphire' %}
+                    <img src="{{ url_for('static', filename='pfp_sapphire.png') }}" alt="Sapphire's profile picture">
+                {% elif username == 'jasper' %}
+                    <img src="{{ url_for('static', filename='pfp_jasper.png') }}" alt="Jasper's profile picture">
+                {% endif %}
+            </div>
+            <div class="user-details">
+                <h1>{{ username }}</h1>
+                <br>
+                </br>
+                <h2>User ID: {{ user_id }}</h2>
+            </div>
+        </div>
+
+        <div id="content1">
+            <table>
+                <tr>
+                    <th>Attribute</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Blood Group</td>
+                    <td>{{ user_details.blood_group }}</td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td>{{ user_details.gender }}</td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td>{{ user_details.age }}</td>
+                </tr>
+            </table>
+        </div>        
+
+        <div id="content2">
+            <h2>Primary care Physician</h2>
+            <p>{{ doctor_name }}</p>
+        </div>
+
+        <div id="content3">
+            <h2>Health Insurance</h2>
+            <p>{{ user_details.health_insurance }}</p>
+        </div>
+
+        <div id="content4">
+            <h2>Medical History</h2>
+            <p>{{ user_details.medical_history }}</p>
+        </div>
+
+        <div id="content5">
+            <h2>Treatment Plan</h2>
+            <p>{{ user_details.treatment_plan }}</p>
+        </div>
+    </div>
+    </div>
+
+</body>
+</html>
