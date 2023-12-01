@@ -6,6 +6,16 @@
     <title>HealthWave</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='logo_icon.ico') }}">
     <link rel="stylesheet"  href="{{ url_for('static', filename='css/medications.css') }}">
+    <script>
+       const currentMonth = new Date().getMonth();
+        const titleBar = document.querySelector('nav');
+        if (currentMonth === 9) { 
+            document.addEventListener('DOMContentLoaded', function() {
+                titleBar.classList.add('november');
+                logoImage.src = "{{ url_for('static', filename='PinkRibbion-Healthwave.png') }}";
+            });
+        }
+    </script>
 </head>
 
 <body>

@@ -7,6 +7,18 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;800&family=Young+Serif&display=swap">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
     <title>Homepage</title>
+    <script>
+        const currentMonth = new Date().getMonth();
+        const logoImage = document.querySelector('.logo img');
+        if (currentMonth === 9) { 
+            document.addEventListener('DOMContentLoaded', function() {
+                const titleBar = document.querySelector('nav');
+                titleBar.classList.add('november');
+                logoImage.src = "{{ url_for('static', filename='PinkRibbion-Healthwave.png') }}";
+                logoImage.alt = "Pink Ribbon Healthwave Logo";
+            });
+        }
+    </script>
 </head>
 
 <body>

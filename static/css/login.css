@@ -14,6 +14,9 @@ body {
     padding: 10px;
     width: 100%;
 }
+.title-bar.november {
+    background-color: pink;
+}
 
 .logo img {
     width: 480px; /* 1.5x the original width */

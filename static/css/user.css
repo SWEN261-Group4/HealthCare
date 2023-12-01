@@ -52,6 +52,9 @@ nav {
     margin-left: -120px;
     margin-right: -120px;
 }
+nav.november {
+    background-color: pink;
+}
 
 nav ul {
     list-style: none;

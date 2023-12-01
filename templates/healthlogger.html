@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/healthlogger.css') }}">
     <title>Health Logger</title>
+    <script>
+        const currentMonth = new Date().getMonth();
+        const titleBar = document.querySelector('nav');
+        if (currentMonth === 9) { 
+            document.addEventListener('DOMContentLoaded', function() {
+                titleBar.classList.add('november');
+                logoImage.src = "{{ url_for('static', filename='PinkRibbion-Healthwave.png') }}";
+            });
+        }
+    </script>
 </head>
 
 <body>

@@ -6,6 +6,18 @@
     <title>Login</title>
     <link rel="icon" type="image/x-icon" href="assets/logo_icon.ico">
     <link rel="stylesheet"  href="{{ url_for('static', filename='css/login.css') }}">
+    <script>
+        const currentMonth = new Date().getMonth();
+        if (currentMonth === 9) { 
+            document.addEventListener('DOMContentLoaded', function() {
+                const titleBar = document.querySelector('.title-bar');
+                const logoImage = document.querySelector('.logo img');
+                titleBar.classList.add('november');
+                logoImage.src = "{{ url_for('static', filename='PinkRibbion-Healthwave.png') }}";
+                logoImage.alt = "Pink Ribbon Healthwave Logo";
+            });
+        }
+    </script>
 </head>
 <body>
     <form method="POST" action="/login">

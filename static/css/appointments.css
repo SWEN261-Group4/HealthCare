@@ -65,6 +65,10 @@ nav {
     align-items: center;
 }
 
+nav.november {
+  background-color: pink;
+}
+
 nav ul {
   list-style: none;
   padding: 0;

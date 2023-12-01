@@ -68,6 +68,10 @@ nav {
   margin-right: -140px;
 }
 
+nav.november {
+  background-color: pink;
+}
+
 nav ul {
   list-style: none;
   padding: 0;
