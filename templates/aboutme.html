@@ -6,14 +6,25 @@
     <link rel="stylesheet"  href="{{ url_for('static', filename='css/aboutme.css') }}">
     <title>User Account</title>
     <script>
-        const currentMonth = new Date().getMonth();
-        const titleBar = document.querySelector('nav');
-        if (currentMonth === 9) { 
-            document.addEventListener('DOMContentLoaded', function() {
-                titleBar.classList.add('november');
-                logoImage.src = "{{ url_for('static', filename='PinkRibbion-Healthwave.png') }}";
-            });
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentMonth = new Date().getMonth();
+            const currentDate = new Date().getDate();
+    
+            if ((currentMonth === 9) || (currentMonth === 11 && currentDate === 5)) {
+                const titleBar = document.querySelector('nav');
+                const logoImage = document.querySelector('.logo img');
+    
+                if (currentMonth === 9) {
+                    titleBar.classList.add('november');
+                    logoImage.src = "{{ url_for('static', filename='PinkRibbion-Healthwave.png') }}";
+                    logoImage.alt = "Pink Ribbon Healthwave Logo";
+                } else if (currentMonth === 3 && currentDate === 22) {
+                    logoImage.classList.add('water');
+                    logoImage.src = "{{ url_for('static', filename='Earth-logo.png') }}";
+                    logoImage.alt = "Earth Logo";
+                }
+            }
+        });
     </script>
 </head>
 
