@@ -7,6 +7,7 @@
     <title>HealthWave</title>
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='static/logo_icon.ico') }}">
     <link rel="stylesheet"  href="{{ url_for('static', filename='css/appointments.css') }}">
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const currentMonth = new Date().getMonth();
@@ -62,6 +63,7 @@
         </div>
 
         <div id="content1">
+        <form form id="cancelForm" action="/appointments" method="POST">
             <h2>Active Appointments</h2>
             <table>
                 <thead>
@@ -91,18 +93,13 @@
                     {% endif %}
                 </tbody>
             </table>
-            <button class="cancel-btn" onclick="cancelSelectedAppointments()">Cancel Selected Appointments</button>
+            <button type="submit" class="cancel-btn">Cancel Selected Appointments</button>
+        </form>
         </div>
 
         <div id="content2">
             <form action="/appointments" method="POST">
                 <h2>Schedule Appointment</h2>
-
-                <select class="doctor-select" name="doctor_full_name" onchange="getSelectedDoctor()">
-                    <option disabled selected hidden>Doctor</option>
-                    <option value="1">Dr. Rick</option>
-                    <option value="2">Dr. Garfield</option>
-                </select>
 
                 <div id="calendar">
                         <div>
@@ -126,86 +123,6 @@
                             <button type="submit" class="schedule-btn">Schedule Appointment</button>
                         </div>
             </form>
-                
-
-                <input type="hidden" id="selectedDoctor" name="selectedDoctor">
-                <script>
-
-                    function updateMinDate() {
-                        const currentDate = new Date();
-                        const minDate = currentDate.toISOString().split('T')[0];
-                        document.getElementById('appointment-date').min = minDate;
-                    }
-
-                    function scheduleAppointment() {
-                        const selectedDate = document.getElementById('appointment-date').value;
-                        const selectedTime = document.getElementById('appointment-time').value;
-                        const selectedDateTime = `${selectedDate} ${selectedTime}`;
-                        const activeAppointments = document.getElementById('content1');
-
-                        const appointmentDetails = {
-                            doctor_id: document.querySelector('.doctor-select').value,
-                            appointment_date: selectedDate,
-                            slot_time: selectedTime
-                        };
-                        bookAppointment(appointmentDetails);
-
-                        function bookAppointment(appointmentDetails) {
-                            fetch('/book_appointment', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify(appointmentDetails),
-                            })
-                            .then(response => {
-                                // Handle response if needed
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
-                        }
-
-                        // Check if the selected date and time is in the past
-                        if (isDateTimeInPast(selectedDateTime)) {
-                            alert('Cannot schedule an appointment for a past date and time.');
-                            return;
-                        }
-
-                        // Check if the appointment for the selected date and time already exists
-                        if (document.querySelector(`#content1 li[data-datetime="${selectedDateTime}"]`)) {
-                            alert(`Appointment for ${selectedDateTime} already exists.`);
-                        } else {
-                            // Create a new list item and append it to the Active Appointments section
-                            const newAppointment = document.createElement('li');
-                            newAppointment.setAttribute('data-datetime', selectedDateTime);
-                            newAppointment.innerHTML = `<input type="checkbox" name="appointments" value="${selectedDateTime}"> <span class="appointment-text">Appointment for ${selectedDateTime}</span>`;
-                            activeAppointments.appendChild(newAppointment);
-                            alert(`Scheduled appointment for ${selectedDateTime}`);
-                        }
-                    }
-
-                    function isDateTimeInPast(dateTime) {
-                        const today = new Date().toISOString().split('T')[0];
-                        const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false });
-                        const currentDateTime = `${today} ${currentTime}`;
-                        return dateTime < currentDateTime;
-                    }
-
-                    function cancelSelectedAppointments() {
-                        const checkboxes = document.querySelectorAll('input[name="appointments"]:checked');
-                        checkboxes.forEach((checkbox) => {
-                            const selectedDateTime = checkbox.value;
-                            const appointmentToRemove = document.querySelector(`#content1 li[data-datetime="${selectedDateTime}"]`);
-                            if (appointmentToRemove) {
-                                appointmentToRemove.remove();
-                                alert(`Canceled appointment for ${selectedDateTime}`);
-                            }
-                            // Add your logic to handle the canceled appointment
-                            // For example, you can send a request to the server to cancel the appointment
-                        });
-                    }
-                </script>
             </div>
         </div>
 
@@ -234,13 +151,6 @@
         footer
     </footer>
 
-    <script>
-        function toggleDropdown(icon) {
-            const dropdown = icon.querySelector('.dropdown-menu');
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-            icon.classList.toggle('clicked');
-        }
-    </script>
 </body>
 
 </html>

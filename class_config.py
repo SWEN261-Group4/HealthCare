@@ -95,6 +95,19 @@ class Config:
         conn.commit()
         conn.close()
 
+    # ADD APPOINTMENT
+
+    def add_appointment(self, appointment_id, user_id, appointment_date, slot_time, doctor_full_name, doctor_id):
+        conn = mysql.connector.connect(**self.mysql_config)
+        cursor = conn.cursor()
+
+        values = (appointment_id, user_id, appointment_date,
+                  slot_time, doctor_full_name, doctor_id)
+        sql_code = "INSERT INTO user_appointments (appointment_id, user_id, date, time, doctor_full_name, doctor_id) VALUES (%s, %s, %s, %s, %s, %s)"
+        cursor.execute(sql_code, values)
+        conn.commit()
+        conn.close()
+
     # GET ACTIVE APPOINTMENTS
     def get_appointments(self, user_id):
         conn = mysql.connector.connect(**self.mysql_config)
@@ -107,48 +120,35 @@ class Config:
         conn.close()
         return appointments
 
-    # ADD APPOINTMENT
-    def add_appointment(self, appointment_id, user_id, appointment_date, slot_time, doctor_full_name, doctor_id):
-        conn = mysql.connector.connect(**self.mysql_config)
-        cursor = conn.cursor()
-
-        values = (appointment_id, user_id, appointment_date,
-                  slot_time, doctor_full_name, doctor_id)
-        sql_code = "INSERT INTO user_appointments (appointment_id, user_id, date, time, doctor_full_name, doctor_id) VALUES (%s, %s, %s, %s, %s, %s)"
-        cursor.execute(sql_code, values)
-        conn.commit()
-        conn.close()
-
    # MAKE APPOINTMENT BOOKED ONCE USER HAS BOOKED WITH DOCTOR
+
     def book_appointment(self, doctor_id, appointment_date, chosen_time):
         conn = self.conn_db()
         cursor = conn.cursor()
 
-        # Assuming chosen_time holds '2:00 PM' as an example
         hour = chosen_time.split(':')[0]
-
-        # Construct the column name based on the normalized chosen time
         slot = f"slot_{hour}"
 
         # Check if the date for the doctor exists in the doctor_booking_schedule
-        check_query = "SELECT COUNT(*) FROM doctor_booking_schedule WHERE doctor_id = %s AND date = %s"
+        check_query = f"SELECT COUNT(*) FROM doctor_booking_schedule WHERE doctor_id = {doctor_id} AND date = {appointment_date}"
         cursor.execute(check_query, (doctor_id, appointment_date))
         row_count = cursor.fetchone()[0]
 
         if row_count == 0:
             # If the row doesn't exist, insert a new row for that date and doctor ID
-            insert_query = "INSERT INTO doctor_booking_schedule (doctor_id, date, slot_9, slot_10, slot_11, slot_12, slot_13, slot_14, slot_15, slot_16, slot_17) VALUES (%s, %s, 'FREE','FREE','FREE','FREE','FREE','FREE','FREE','FREE','FREE')"
+            insert_query = f"INSERT INTO doctor_booking_schedule (doctor_id, date, slot_9, slot_10, slot_11, slot_12, slot_13, slot_14, slot_15, slot_16, slot_17) VALUES ({doctor_id}, {appointment_date}, 'FREE','FREE','FREE','FREE','FREE','FREE','FREE','FREE','FREE')"
             cursor.execute(insert_query, (doctor_id, appointment_date))
             conn.commit()
 
-        # Update the slot status to "BOOKED" in doctor_booking_schedule using parameterized query
-        update_query = f"UPDATE doctor_booking_schedule SET `{slot}` = 'BOOKED' WHERE doctor_id = %s AND date = %s"
+        # Whether the row existed or was just inserted, now update the slot status to "BOOKED"
+        update_query = f"UPDATE doctor_booking_schedule SET `{slot}` = 'BOOKED' WHERE doctor_id = {doctor_id} AND date = {appointment_date}"
         cursor.execute(update_query, (doctor_id, appointment_date))
         conn.commit()
 
         conn.close()
 
     # GET USER DETAILS for about me page
+
     def get_user_details(self, user_id):
         conn = self.conn_db()
         cursor = conn.cursor(dictionary=True)
@@ -160,3 +160,15 @@ class Config:
 
         conn.close()
         return user_data
+
+    # GET SPECIALIZED HEALTH RECOMMENDATIONS  BASED ON USER
+    def get_health_recommendations(self, user_id):
+        conn = self.conn_db()
+        cursor = conn.cursor()
+
+        cursor.execute(
+            f"SELECT * FROM user_health_recommendations WHERE illness_id IN (SELECT illness_id FROM user_illness WHERE user_id = '{user_id}');"
+        )
+        rec_data = cursor.fetchall()
+        conn.close()
+        return rec_data

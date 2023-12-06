@@ -6,7 +6,7 @@
     <title>Login</title>
     <link rel="icon" type="image/x-icon" href="assets/logo_icon.ico">
     <link rel="stylesheet"  href="{{ url_for('static', filename='css/login.css') }}">
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const currentMonth = new Date().getMonth();
@@ -28,7 +28,6 @@
             }
         });
     </script>
-
 </head>
 <body>
     <form method="POST" action="/login">

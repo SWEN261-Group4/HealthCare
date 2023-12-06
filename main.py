@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, current_app
+from flask import Flask, render_template, request, redirect, url_for, session
 from class_config import Config
 import uuid
 
@@ -16,6 +16,9 @@ USERS = {
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'username' in session:
+        return redirect(url_for('user_profile'))
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -32,9 +35,15 @@ def login():
 def user_profile():
     if 'username' in session:
         username = session['username']
-        welcome_message = f"Welcome back, {username}!"
-        return render_template('user.html', welcome_message=welcome_message, username=username)
-    return redirect(url_for('login'))
+        user_ids = {'ruby': 'U001', 'sapphire': 'U002', 'jasper': 'U003'}
+        user_id = user_ids.get(username)
+
+        # Retrieve health recommendations using the Config class methods
+        health_recommendations = config.get_health_recommendations(user_id)
+
+        return render_template('user.html', health_recommendations=health_recommendations, username=username)
+    else:
+        return redirect(url_for('login'))
 
 
 @app.route('/medications')
@@ -105,8 +114,6 @@ def appointments():
 
             config.add_appointment(
                 appointment_id, user_id, appointment_date, slot_time, doctor_full_name, doctor_id)
-
-            config.book_appointment(doctor_id, appointment_date, slot_time)
 
         # retrieve appointments data specific to the user
         appointments = config.get_appointments(user_id)

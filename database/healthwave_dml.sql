@@ -29,18 +29,41 @@ VALUES
 
 
 -- Inserting data into `doctor_booking_schedule` table
-INSERT INTO doctor_booking_schedule (doctor_id, date, slot_9am, slot_10am, slot_11am, slot_12pm, slot_1pm, slot_2pm, slot_3pm, slot_4pm, slot_5pm)
+INSERT INTO doctor_booking_schedule (doctor_id, date, slot_9, slot_10, slot_11, slot_12, slot_13, slot_14, slot_15, slot_16, slot_17)
 VALUES 
 ('D001', '2023-11-15', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE'),
 ('D002', '2023-11-15', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE', 'FREE');
-
-INSERT INTO user_appointments (appointment_id, user_id, date, time, doctor_full_name, doctor_id)
-VALUES 
-('A001', 'U001', '2023-11-20', '10:00:00', 'Dr. Rick', 'D001'),
-('A002', 'U002', '2023-11-22', '14:30:00', 'Dr. Rick', 'D001'),
-('A003', 'U003', '2023-11-22', '14:30:00', 'Dr. Garfield', 'D002');
 
 INSERT INTO doctor_appointments (appointment_id, date, time, user_full_name, user_id)
 VALUES 
 ('B001', '2023-11-25', '11:00:00', 'ruby', 'U001'),
 ('B002', '2023-11-28', '09:30:00', 'sapphire', 'U002');
+
+-- Inserting data into `user_illness` table
+INSERT INTO user_illness (user_id, illness_name, illness_id)
+VALUES
+('U001', 'Muscle Strain', 7),
+('U001', 'Sprained Ankle', 8),
+('U002', 'Depression', 3),
+('U002', 'Anxiety', 2),
+('U002', 'Diabetes', 9),
+('U002', 'Asthma', 10),
+('U002', 'Hypertension', 11),
+('U002', 'Obesity', 12),
+('U003', 'Arthritis', 13),
+('U003', 'Osteoporosis', 14),
+('U003', 'Vision Impairment', 15);
+
+INSERT INTO user_health_recommendations (illness_id, illness_name, health_recommendations)
+VALUES
+(7, 'Muscle Strain', 'Rest, ice, compression, elevation (RICE) method. Avoid strenuous activities.'),
+(8, 'Sprained Ankle', 'Use ice packs, elevate the injured area, avoid putting weight on the ankle.'),
+(3, 'Depression', 'Therapy sessions, medication as prescribed by a psychiatrist, regular exercise.'),
+(2, 'Anxiety', 'Counseling, stress management techniques, mindfulness practices.'),
+(9, 'Diabetes', 'Balanced diet, regular exercise, blood sugar monitoring.'),
+(10, 'Asthma', 'Avoid triggers, use inhalers as prescribed.'),
+(11, 'Hypertension', 'Maintain a healthy diet, exercise regularly, monitor blood pressure.'),
+(12, 'Obesity', 'Balanced diet, portion control, regular exercise.'),
+(13, 'Arthritis', 'Low-impact exercises, pain management, joint protection.'),
+(14, 'Osteoporosis', 'Calcium and vitamin D supplements, weight-bearing exercises.'),
+(15, 'Vision Impairment', 'Regular eye check-ups, use prescribed corrective measures.');

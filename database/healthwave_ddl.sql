@@ -47,15 +47,15 @@ CREATE TABLE doctor_booking_schedule (
     booking_id INT AUTO_INCREMENT PRIMARY KEY,
     doctor_id VARCHAR(10),
     date DATE,
-    slot_9am ENUM('FREE', 'BOOKED'),
-    slot_10am ENUM('FREE', 'BOOKED'),
-    slot_11am ENUM('FREE', 'BOOKED'),
-    slot_12pm ENUM('FREE', 'BOOKED'),
-    slot_1pm ENUM('FREE', 'BOOKED'),
-    slot_2pm ENUM('FREE', 'BOOKED'),
-    slot_3pm ENUM('FREE', 'BOOKED'),
-    slot_4pm ENUM('FREE', 'BOOKED'),
-    slot_5pm ENUM('FREE', 'BOOKED'),
+    slot_9 ENUM('FREE', 'BOOKED'),
+    slot_10 ENUM('FREE', 'BOOKED'),
+    slot_11 ENUM('FREE', 'BOOKED'),
+    slot_12 ENUM('FREE', 'BOOKED'),
+    slot_13 ENUM('FREE', 'BOOKED'),
+    slot_14 ENUM('FREE', 'BOOKED'),
+    slot_15 ENUM('FREE', 'BOOKED'),
+    slot_16 ENUM('FREE', 'BOOKED'),
+    slot_17 ENUM('FREE', 'BOOKED'),
     FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
 );
 
@@ -77,4 +77,18 @@ CREATE TABLE user_appointments (
     doctor_id VARCHAR(10),
     FOREIGN KEY (user_ID) REFERENCES user(user_id),
     FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id)
+);
+
+CREATE TABLE user_illness (
+    user_id VARCHAR(10),
+    illness_name VARCHAR(100),
+    illness_id INT,
+    FOREIGN KEY (user_id) REFERENCES user(user_id),
+    PRIMARY KEY (user_id, illness_id)
+);
+
+CREATE TABLE user_health_recommendations (
+    illness_id INT PRIMARY KEY,
+    illness_name VARCHAR(100),
+    health_recommendations TEXT
 );

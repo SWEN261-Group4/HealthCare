@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;800&family=Young+Serif&display=swap">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
     <title>Homepage</title>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const currentMonth = new Date().getMonth();
@@ -68,6 +69,24 @@
                 <br>
                 </br>
                 <h1>Welcome back, {{ username }}</h1>
+                <h3>Health Recommendations</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Illness Name</th>
+                            <th>Health Recommendations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for recommendation in health_recommendations %}
+                            <tr>
+                                <td>{{ recommendation[0] }}</td>
+                                <td>{{ recommendation[1] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
             </div>
         </div>
     </div>

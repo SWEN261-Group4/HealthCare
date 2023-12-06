@@ -72,6 +72,7 @@ nav.november {
   background-color: pink;
 }
 
+
 nav ul {
   list-style: none;
   padding: 0;
@@ -257,8 +258,8 @@ nav ul li a:hover::before {
 
 .user-details {
   display: flex;
-  flex-direction: column; /* Stack username and user ID vertically */
-  margin-left: 20px; /* Adjust this margin as needed */
+  flex-direction: column;
+  margin-left: 20px;
 }
 
 .user-details h1 {
