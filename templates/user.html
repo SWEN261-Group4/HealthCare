@@ -69,24 +69,18 @@
                 <br>
                 </br>
                 <h1>Welcome back, {{ username }}</h1>
-                <h3>Health Recommendations</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Illness Name</th>
-                            <th>Health Recommendations</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for recommendation in health_recommendations %}
-                            <tr>
-                                <td>{{ recommendation[0] }}</td>
-                                <td>{{ recommendation[1] }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <h2>Personalised Health Recommendations</h2>
 
+                <div class="illness-recommendations">
+                    {% for recommendation in health_recommendations %}
+                        <div class="illness">
+                            <strong>Illness Name:</strong> {{ recommendation[1] }}
+                        </div>
+                        <div class="recommendation">
+                            <strong>Recommendations:</strong> {{ recommendation[2] }}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
